@@ -1,0 +1,32 @@
+.nav-btn{
+    border:0;
+    background:transparent;
+}
+.home.top-section{
+    background:url("https://images.unsplash.com/photo-1526371680204-42e99da256e9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80") center/cover no-repeat;
+    max-height:55vh;
+
+}
+.home .bg-title >.box{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:40vh;
+}
+
+.search-tags .tag{
+    border: 1px solid gray;
+    padding:.1rem .6rem;
+    text-decoration: none;
+}
+.profile-picture{
+    background-position: center;
+    background-size: cover;
+    height:65px;
+    width:65px;
+    border-radius: 50%;
+}
+.ps-6{
+    padding-left: 5.5rem;
+}
