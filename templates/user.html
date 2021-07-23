@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{% static 'index.css' %}" />
+</head>
+<body>
+    <section class="top-section">
+        <nav class="navbar navbar-expand navbar-light">
+            <div class="container-fluid px-5">
+                <a class="fw-bold navbar-brand" href="#">Blog</a>
+                <button class="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item ps-3">
+                            <a class="nav-link active" aria-current="page" href="#">Sign in</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </nav>
+    </section>
+    <section class="container px-5 mt-5">
+        <div class="profile-header d-flex flex-wrap">
+            <div class="profile-card d-flex flex-wrap px-4 pt-2 justify-content-center">
+                <div class="profile-picture mb-3" style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80');
+                    height:150px;width:150px;">
+                </div>
+                <div class="profile-details align-self-center px-4">
+                    <div class="profile-header-card d-flex mb-3">
+                        <div class="fs-4">
+                            Name
+                        </div>
+                        <button href="#" class="btn btn-sm btn-outline-dark ms-3">follow</button>
+                    </div>
+                    <div class="profile-attributes d-flex mb-3">
+                        <div class="post-number">
+                            153 posts
+                        </div>
+                        <div class="post-followers px-3">
+                            24.5k followers
+                        </div>
+                        <div class="post-following">
+                            4 following
+                        </div>
+                    </div>
+                    <div class="profile-about">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </section>
+
+    <section class="container px-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow bg-body rounded mb-4">
+                    <img src="https://images.unsplash.com/photo-1441441247730-d09529166668?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
+                        class="card-img-top" alt="...">
+                    <div class="card-body px-4">
+                        <small class="card-text text-muted">
+                            by&nbsp;<span>rithin</span>&nbsp;
+                            <span>November 23, 2021</span>
+                        </small>
+
+                        <h5 class="card-title fs-3 fw-bold">Post Title</h5>
+                        <p class="card-text text-muted">Some quick example text to build on the card title and
+                            make up the
+                            bulk of the card's content.
+                        </p>
+                        <div class="row post-votes">
+                            <div class="col-8 col-sm-8 col-md-6 col-lg-7 col-xl-8">
+                                <hr>
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-6 col-lg-5 col-xl-4">
+                                <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
+                            </div>
+                        </div>
+                        <p class="card-text text-muted">category</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow bg-body rounded mb-4">
+                    <img src="https://images.unsplash.com/photo-1441441247730-d09529166668?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
+                        class="card-img-top" alt="...">
+                    <div class="card-body px-4">
+                        <small class="card-text text-muted">
+                            by&nbsp;<span>rithin</span>&nbsp;
+                            <span>November 23, 2021</span>
+                        </small>
+
+                        <h5 class="card-title fs-3 fw-bold">Post Title</h5>
+                        <p class="card-text text-muted">Some quick example text to build on the card title and
+                            make up the
+                            bulk of the card's content.
+                        </p>
+                        <div class="row post-votes">
+                            <div class="col-8 col-sm-8 col-md-6 col-lg-7 col-xl-8">
+                                <hr>
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-6 col-lg-5 col-xl-4">
+                                <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
+                            </div>
+                        </div>
+                        <p class="card-text text-muted">category</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow bg-body rounded mb-4">
+                    <img src="https://images.unsplash.com/photo-1441441247730-d09529166668?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
+                        class="card-img-top" alt="...">
+                    <div class="card-body px-4">
+                        <small class="card-text text-muted">
+                            by&nbsp;<span>rithin</span>&nbsp;
+                            <span>November 23, 2021</span>
+                        </small>
+
+                        <h5 class="card-title fs-3 fw-bold">Post Title</h5>
+                        <p class="card-text text-muted">Some quick example text to build on the card title and
+                            make up the
+                            bulk of the card's content.
+                        </p>
+                        <div class="row post-votes">
+                            <div class="col-8 col-sm-8 col-md-6 col-lg-7 col-xl-8">
+                                <hr>
+                            </div>
+                            <div class="col-4 col-sm-4 col-md-6 col-lg-5 col-xl-4">
+                                <span class="badge rounded-pill bg-secondary" href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                                        <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+                                    </svg>
+                                    upvotes | 400</span>
+                            </div>
+                        </div>
+                        <p class="card-text text-muted">category</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

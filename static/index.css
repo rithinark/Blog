@@ -30,3 +30,39 @@
 .ps-6{
     padding-left: 5.5rem;
 }
+.related-post-img{
+    max-height:250px;
+    object-fit: cover;
+}
+#add-comment:focus-visible{
+    outline:none;
+}
+.respond-btns a{
+    display:block;
+    max-width:65px;
+}
+@media(min-width:768px){
+    .profile-card .profile-details .profile-about p{
+        max-width: 360px;
+    }
+}
+@media(min-width:992px){
+    .profile-card .profile-details .profile-about p{
+        max-width: 500px;
+    }
+}
+@media(min-width:1200px){
+    .profile-card .profile-details .profile-about p{
+        max-width: 700px;
+    }
+}
+
+@media(min-width:1400px){
+    .profile-card .profile-details .profile-about p{
+        max-width: 800px;
+    }
+}
+.review-section .review-icons a{
+    text-decoration: none;
+    color:black;
+}

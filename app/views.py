@@ -7,3 +7,6 @@ def home(request):
 
 def post(request):
     return render(request, 'post.html')
+
+def user(request):
+    return render(request, 'user.html')
