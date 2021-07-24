@@ -7,7 +7,7 @@
     max-height:55vh;
 
 }
-.home .bg-title >.box{
+.home .bg-title >.boxed{
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -41,20 +41,34 @@
     display:block;
     max-width:65px;
 }
+#image-upload svg{
+        height:50px;
+        width:50px;
+}
+
 @media(min-width:768px){
     .profile-card .profile-details .profile-about p{
         max-width: 360px;
     }
+
 }
 @media(min-width:992px){
     .profile-card .profile-details .profile-about p{
         max-width: 500px;
     }
+    #image-upload svg{
+        height:60px;
+        width:60px;
+}
 }
 @media(min-width:1200px){
     .profile-card .profile-details .profile-about p{
         max-width: 700px;
     }
+    #image-upload svg{
+        height:75x;
+        width:75px;
+}
 }
 
 @media(min-width:1400px){
@@ -79,3 +93,23 @@
     box-shadow: none;
     outline:none; 
 }
+#uploadedImg{
+    width:100%;
+    object-fit: cover;
+    height:auto;
+}
+.box{
+    width:65%;
+    min-height:60vh;
+    background-color:#e9ecef;
+}
+.image-overlay{
+    background-color: #e9ecef;
+    opacity: .5;
+}
+[contenteditable=true]:empty:before{
+    content: attr(placeholder);
+    pointer-events: none;
+    display: block; /* For Firefox */
+    color:#6c757d;
+  }
