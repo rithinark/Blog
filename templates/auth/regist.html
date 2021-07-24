@@ -1,0 +1,48 @@
+{% extends "boilerplate.html" %}
+{% load static %}
+{% block content %}
+<style>
+    html{
+        font-size:12px;
+    }
+</style>
+<section class="container px-5 d-flex justify-content-center align-items-center" style="min-height:100vh;">
+    <section class="regist-form shadow-sm container" style="width: 40%; min-width:315px;">
+        <div class="fs-1 fw-bolder text-center mt-5"> Blog </div>
+        <div class="fs-5 fw-bolder text-center"> 
+            Sign up to see Blogs from people around the world. </div>
+       
+        <form action="" class="container px-5" method="POST">
+            <hr>
+            {% csrf_token %}
+            <div class="form-floating mb-1">
+                <input type="email" class="c-form form-control" name="email" placeholder="Username" id="emaileInput">
+                <label for="usernameInput">Email</label>
+            </div>
+            <div class="form-floating mb-1">
+                <input type="text" class="c-form form-control" name="username" placeholder="Username" id="usernameInput">
+                <label for="usernameInput">Username</label>
+            </div>
+            <div class="form-floating mb-1">
+                <input type="password" class="c-form form-control" name="password1" placeholder="Username" id="password1Input">
+                <label for="password1Input">Password</label>
+            </div>
+            <div class="form-floating mb-4">
+                <input type="password" class="c-form form-control" name="password2" placeholder="Username" id="password2Input">
+                <label for="password2Input">Confirm Password</label>
+            </div>
+            <button class="btn btn-primary w-100 mb-4">Sign up</button>
+        </form>
+        <div class="fs-6 text-center mb-3"> 
+            By signing up, you agree to our Terms , Data Policy and Cookies Policy . 
+        </div>
+        <div class="fs-5 text-center mb-5">
+            Have an account? <a href="#">Log in</a>
+        </div>
+
+
+    </section>
+
+</section>
+
+{% endblock %}

@@ -1,215 +1,197 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'index.css' %}" />
-</head>
+{% extends "boilerplate.html" %}
+{% load static %}
+{% block content %}
 
-<body>
-    <section class="home top-section">
-        <nav class="navbar navbar-expand-lg navbar-dark">
-            <div class="container-fluid px-5">
-                <a class="fw-bold navbar-brand" href="#">BLOG</a>
-                <button class="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <input type="submit" class="visually-hidden" tabindex="-1" />
-                        </form>
+<section class="home top-section">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid px-5">
+            <a class="fw-bold navbar-brand" href="#">BLOG</a>
+            <button class="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                        <input type="submit" class="visually-hidden" tabindex="-1" />
+                    </form>
 
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Sign in</a>
-                        </li>
-                    </ul>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Sign in</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-title container">
+        <div class="text-center box" style="color:white;">
+            <h1>WELCOME</h1>
+            <p>lorem ipsum dolor sit</p>
+        </div>
+    </div>
+
+</section>
+
+<section class="container search-tags category my-5">
+    <div class="tags box d-flex flex-wrap ">
+        <a href="#" class="tag rounded-pill text-muted m-2">All</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">All</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
+            class="tag rounded-pill text-muted m-2">All</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
+            class="tag rounded-pill text-muted m-2">All</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
+            class="tag rounded-pill text-muted m-2">All</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">All</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
+            class="tag rounded-pill text-muted m-2">All</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
+            class="tag rounded-pill text-muted m-2">All</a>
+        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a>
+    </div>
+</section>
+
+<section class="container main-section">
+    <div class="row">
+        <div class="col-xl-8 container">
+            <div class="row posts recent-posts">
+
+                <div class="col-md-6 post">
+                    <div class="card shadow bg-body rounded mb-4">
+                        <img src="https://images.unsplash.com/photo-1441441247730-d09529166668?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
+                            class="card-img-top" alt="...">
+                        <div class="card-body px-4">
+                            <small class="card-text text-muted">
+                                by&nbsp;<span>rithin</span>&nbsp;
+                                <span>November 23, 2021</span>
+                            </small>
+
+                            <h5 class="card-title fs-3 fw-bold">Post Title</h5>
+                            <p class="card-text text-muted">Some quick example text to build on the card title and
+                                make up the
+                                bulk of the card's content.
+                            </p>
+                            <div class="row post-votes">
+                                <div class="col-8">
+                                    <hr>
+                                </div>
+                                <div class="col-4">
+                                    <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">category</p>
+                        </div>
+                    </div>
+
+                    <div class="card shadow bg-body rounded mb-4">
+                        <img src="https://images.unsplash.com/photo-1466112928291-0903b80a9466?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
+                            class="card-img-top" alt="...">
+                        <div class="card-body px-4">
+                            <small class="card-text text-muted">
+                                by&nbsp;<span>rithin</span>&nbsp;
+                                <span>November 23, 2021</span>
+                            </small>
+
+                            <h5 class="card-title fs-3 fw-bold">Post Title</h5>
+                            <p class="card-text text-muted">Some quick example text to build on the card title and
+                                make up the
+                                bulk of the card's content.
+                            </p>
+                            <div class="row post-votes">
+                                <div class="col-8">
+                                    <hr>
+                                </div>
+                                <div class="col-4">
+                                    <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
+                                </div>
+                            </div>
+                            <p class="card-text text-muted">category</p>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-        </nav>
 
-        <div class="bg-title container">
-            <div class="text-center box" style="color:white;">
-                <h1>WELCOME</h1>
-                <p>lorem ipsum dolor sit</p>
-            </div>
-        </div>
 
-    </section>
+                <div class="col-md-6 post">
+                    <div class="card shadow bg-body rounded mb-4">
+                        <img src="https://images.unsplash.com/photo-1626701594060-8329551e05bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
+                            class="card-img-top" alt="...">
+                        <div class="card-body px-4">
+                            <small class="card-text text-muted">
+                                by&nbsp;<span>rithin</span>&nbsp;
+                                <span>November 23, 2021</span>
+                            </small>
 
-    <section class="container search-tags category my-5">
-        <div class="tags box d-flex flex-wrap ">
-            <a href="#" class="tag rounded-pill text-muted m-2">All</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">All</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-                class="tag rounded-pill text-muted m-2">All</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-                class="tag rounded-pill text-muted m-2">All</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-                class="tag rounded-pill text-muted m-2">All</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">All</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-                class="tag rounded-pill text-muted m-2">All</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-                class="tag rounded-pill text-muted m-2">All</a>
-            <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a>
-        </div>
-    </section>
-
-    <section class="container main-section">
-        <div class="row">
-            <div class="col-xl-8 container">
-                <div class="row posts recent-posts">
-
-                    <div class="col-md-6 post">
-                        <div class="card shadow bg-body rounded mb-4">
-                            <img src="https://images.unsplash.com/photo-1441441247730-d09529166668?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
-                                class="card-img-top" alt="...">
-                            <div class="card-body px-4">
-                                <small class="card-text text-muted">
-                                    by&nbsp;<span>rithin</span>&nbsp;
-                                    <span>November 23, 2021</span>
-                                </small>
-
-                                <h5 class="card-title fs-3 fw-bold">Post Title</h5>
-                                <p class="card-text text-muted">Some quick example text to build on the card title and
-                                    make up the
-                                    bulk of the card's content.
-                                </p>
-                                <div class="row post-votes">
-                                    <div class="col-8">
-                                        <hr>
-                                    </div>
-                                    <div class="col-4">
-                                        <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
-                                    </div>
+                            <h5 class="card-title fs-3 fw-bold">Post Title</h5>
+                            <p class="card-text text-muted">Some quick example text to build on the card title and
+                                make up the
+                                bulk of the card's content.
+                            </p>
+                            <div class="row post-votes">
+                                <div class="col-8">
+                                    <hr>
                                 </div>
-                                <p class="card-text text-muted">category</p>
+                                <div class="col-4">
+                                    <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
+                                </div>
                             </div>
+                            <p class="card-text text-muted">category</p>
                         </div>
 
-                        <div class="card shadow bg-body rounded mb-4">
-                            <img src="https://images.unsplash.com/photo-1466112928291-0903b80a9466?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
-                                class="card-img-top" alt="...">
-                            <div class="card-body px-4">
-                                <small class="card-text text-muted">
-                                    by&nbsp;<span>rithin</span>&nbsp;
-                                    <span>November 23, 2021</span>
-                                </small>
-
-                                <h5 class="card-title fs-3 fw-bold">Post Title</h5>
-                                <p class="card-text text-muted">Some quick example text to build on the card title and
-                                    make up the
-                                    bulk of the card's content.
-                                </p>
-                                <div class="row post-votes">
-                                    <div class="col-8">
-                                        <hr>
-                                    </div>
-                                    <div class="col-4">
-                                        <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
-                                    </div>
-                                </div>
-                                <p class="card-text text-muted">category</p>
-                            </div>
-                        </div>
-
-                    </div>
-
-
-                    <div class="col-md-6 post">
-                        <div class="card shadow bg-body rounded mb-4">
-                            <img src="https://images.unsplash.com/photo-1626701594060-8329551e05bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
-                                class="card-img-top" alt="...">
-                            <div class="card-body px-4">
-                                <small class="card-text text-muted">
-                                    by&nbsp;<span>rithin</span>&nbsp;
-                                    <span>November 23, 2021</span>
-                                </small>
-
-                                <h5 class="card-title fs-3 fw-bold">Post Title</h5>
-                                <p class="card-text text-muted">Some quick example text to build on the card title and
-                                    make up the
-                                    bulk of the card's content.
-                                </p>
-                                <div class="row post-votes">
-                                    <div class="col-8">
-                                        <hr>
-                                    </div>
-                                    <div class="col-4">
-                                        <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
-                                    </div>
-                                </div>
-                                <p class="card-text text-muted">category</p>
-                            </div>
-
-                            
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 post mb-4">
 
                     </div>
                 </div>
-            </div>
-            <!-----------------------------------------side panel----------------------------------------------------------->
-            <div class="col-xl-4">
-                <div class="suggested-people">
-                    <h5>Suggested people</h5>
 
-                    <div class="profile-card mb-3">
-                        <div class="row">
-                            <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
-                                <div class="profile-picture"
-                                    style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80')">
-                                </div>
-                            </div>
-                            <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
-                                <span class="fw-bold text-capitalize">name</span>
-                                <p class="text-muted"> lorem ipsum dolor sit amet
-                                    torento rome italy
-                                </p>
+                <div class="col-md-6 post mb-4">
+
+                </div>
+            </div>
+        </div>
+        <!-----------------------------------------side panel----------------------------------------------------------->
+        <div class="col-xl-4">
+            <div class="suggested-people">
+                <h5>Suggested people</h5>
+
+                <div class="profile-card mb-3">
+                    <div class="row">
+                        <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
+                            <div class="profile-picture"
+                                style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80')">
                             </div>
                         </div>
-                        <hr>
+                        <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
+                            <span class="fw-bold text-capitalize">name</span>
+                            <p class="text-muted"> lorem ipsum dolor sit amet
+                                torento rome italy
+                            </p>
+                        </div>
                     </div>
+                    <hr>
+                </div>
 
-                    <div class="profile-card mb-3">
-                        <div class="row">
-                            <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
-                                <div class="profile-picture"
-                                    style="background-image:url('https://images.unsplash.com/photo-1532074205216-d0e1f4b87368?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=381&q=80')">
-                                </div>
+                <div class="profile-card mb-3">
+                    <div class="row">
+                        <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
+                            <div class="profile-picture"
+                                style="background-image:url('https://images.unsplash.com/photo-1532074205216-d0e1f4b87368?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=381&q=80')">
                             </div>
-                            <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
-                                <span class="fw-bold text-capitalize">name</span>
-                                <p class="text-muted"> lorem ipsum dolor sit amet
-                                    torento rome italy
-                                </p>
-                            </div>
+                        </div>
+                        <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
+                            <span class="fw-bold text-capitalize">name</span>
+                            <p class="text-muted"> lorem ipsum dolor sit amet
+                                torento rome italy
+                            </p>
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
+    </div>
 
-    </section>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+</section>
+{% endblock %}

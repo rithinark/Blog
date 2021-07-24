@@ -66,3 +66,10 @@
     text-decoration: none;
     color:black;
 }
+.c-form:focus{
+    box-shadow: none;
+    border-color:rgb(61, 61, 61);
+}
+.regist-form{
+    border:1px solid rgb(218, 218, 218);
+}
