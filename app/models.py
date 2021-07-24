@@ -1,44 +1,81 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 # Create your models here.
 
 
 class BlogUserManager(BaseUserManager):
 
-    def create_user(self, email, password, **extra_fields):
+    def create_user(self, email, password=None):
+        """
+        Creates and saves a User with the given email and password.
+        """
         if not email:
-            raise ValueError(_('The Email must be set'))
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            email=self.normalize_email(email),
+        )
+
         user.set_password(password)
-        user.save()
+        user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
+    def create_staffuser(self, email, password):
+        """
+        Creates and saves a staff user with the given email and password.
+        """
+        user = self.create_user(
+            email,
+            password=password,
+        )
+        user.staff = True
+        user.save(using=self._db)
+        return user
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError(_('Superuser must have is_staff=True.'))
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError(_('Superuser must have is_superuser=True.'))
-        return self.create_user(email, password, **extra_fields)
+    def create_superuser(self, email, password):
+        """
+        Creates and saves a superuser with the given email and password.
+        """
+        user = self.create_user(
+            email,
+            password=password,
+        )
+        user.staff = True
+        user.admin = True
+        user.save(using=self._db)
+        return user
 
 
-class BlogUser(AbstractUser):
-    first_name = None
-    last_name = None
-    email = models.EmailField(_('email address'), unique=True)
+class BlogUser(AbstractBaseUser):
+
+    email = models.EmailField(
+        verbose_name='email address',
+        max_length=255,
+        unique=True,
+    )
+    fullname = models.CharField(max_length=150)
+    is_active = models.BooleanField(default=True)
+    staff = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
+
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['fullname']
 
     def get_username(self):
-        return self.username
+        return self.email
 
     def __str__(self):
         return self.email
+
+    @property
+    def is_staff(self):
+        return self.staff
+
+    @property
+    def is_admin(self):
+        return self.admin
 
     objects = BlogUserManager()
 
@@ -56,11 +93,18 @@ class Post(models.Model):
     author = models.ForeignKey(BlogUser, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
     title = models.CharField(max_length=32)
-    content = models.TextField()
+    content = models.TextField(null=True)
     published_at = models.DateTimeField(null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    tumbnail = models.ImageField(upload_to='images/posts')
+    tumbnail = models.ImageField(upload_to='images/posts', null=True)
+
+    def publish(self, *args, **kwargs):
+        if self.content and self.tumbnail:
+            self.published_at = timezone.now()
+        return super(Post, self).save(*args, **kwargs)
+
+
 
 
 class Review(models.Model):

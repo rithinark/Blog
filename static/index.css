@@ -73,3 +73,9 @@
 .regist-form{
     border:1px solid rgb(218, 218, 218);
 }
+
+
+.c-btn:focus{
+    box-shadow: none;
+    outline:none; 
+}
