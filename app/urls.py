@@ -1,16 +1,30 @@
-from django.urls import path
-from . import views;
+from django.urls import path, include
+from . import views
+from . import api
+from rest_framework.routers import DefaultRouter
+from rest_framework import routers
+
+router = DefaultRouter()
+router.register(r'posts', api.PostViewSet, basename='post')
+router.register(r'tag', api.TagViewSet)
+
+
+
 urlpatterns = [
     #auth
     path('login', views.login, name='login'),
-    path('regist', views.regist),
+    path('regist', views.regist, name="sign up"),
+    path('logout', views.logout, name="logout"),
 
-    #crud
-    path('create', views.create_post),
-
+    #pages
+    path('write', views.create_post),
     path('', views.home, name='home'),
-    path('post', views.post,),
-    path('user', views.user),
+    path('post', views.post,name="post"),
+    path('user', views.user, name="profile"),
+
+    #api
+    path(r'api/', include(router.urls)),
+    path('post-write', api.PostWrite.as_view())
 
     
 ]

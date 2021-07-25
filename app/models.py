@@ -92,12 +92,13 @@ class Tag(models.Model):
 class Post(models.Model):
     author = models.ForeignKey(BlogUser, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
-    title = models.CharField(max_length=32)
+    title = models.CharField(max_length=40, null=True)
     content = models.TextField(null=True)
     published_at = models.DateTimeField(null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     tumbnail = models.ImageField(upload_to='images/posts', null=True)
+    is_draft = models.BooleanField(null=True)
 
     def publish(self, *args, **kwargs):
         if self.content and self.tumbnail:

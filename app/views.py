@@ -1,22 +1,10 @@
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.shortcuts import render , redirect
 from . import forms
+
 # Create your views here.
 
-
-def home(request):
-    return render(request, 'home.html')
-
-
-def post(request):
-    return render(request, 'post.html')
-
-
-def user(request):
-    return render(request, 'user.html')
-
-
-
+#===================================================auth views============================================================
 def login(request):
     if request.POST:
         form = forms.LoginForm(request=request, data=request.POST)
@@ -43,8 +31,26 @@ def regist(request):
     return render(request, 'auth/regist.html', {"form":form})
 
 
+def logout(request):
+    auth_logout(request=request)
+    return redirect('home')
 
 
+
+#=======================================================page views=========================================================
+def home(request):
+    return render(request, 'home.html')
+
+
+def post(request):
+    return render(request, 'post.html')
+
+
+def user(request):
+    return render(request, 'user.html')
+    
 def create_post(request):
-
     return render (request, 'createpost.html')
+
+
+
