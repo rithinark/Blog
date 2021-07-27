@@ -86,24 +86,32 @@ class UserDetail(models.Model):
 
 
 class Tag(models.Model):
-    tags = models.CharField(max_length=16)
+    tags = models.CharField(max_length=16, unique=True)
 
 
 class Post(models.Model):
     author = models.ForeignKey(BlogUser, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
     title = models.CharField(max_length=40, null=True)
     content = models.TextField(null=True)
     published_at = models.DateTimeField(null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     tumbnail = models.ImageField(upload_to='images/posts', null=True)
-    is_draft = models.BooleanField(null=True)
+    is_draft = models.BooleanField(default=True)
 
     def publish(self, *args, **kwargs):
-        if self.content and self.tumbnail:
-            self.published_at = timezone.now()
-        return super(Post, self).save(*args, **kwargs)
+        if not (self.content and self.tumbnail):
+            return False
+        self.is_draft=False
+        self.published_at = timezone.now()
+        super(Post, self).save(*args, **kwargs)
+        return True
+
+
+        
+
+
 
 
 

@@ -5,7 +5,6 @@
 .home.top-section{
     background:url("https://images.unsplash.com/photo-1526371680204-42e99da256e9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80") center/cover no-repeat;
     max-height:55vh;
-
 }
 .home .bg-title >.boxed{
     display:flex;
@@ -59,7 +58,7 @@
     #image-upload svg{
         height:60px;
         width:60px;
-}
+    }
 }
 @media(min-width:1200px){
     .profile-card .profile-details .profile-about p{
@@ -68,7 +67,7 @@
     #image-upload svg{
         height:75x;
         width:75px;
-}
+    }
 }
 
 @media(min-width:1400px){
@@ -87,8 +86,6 @@
 .regist-form{
     border:1px solid rgb(218, 218, 218);
 }
-
-
 .c-btn:focus{
     box-shadow: none;
     outline:none; 
@@ -112,4 +109,4 @@
     pointer-events: none;
     display: block; /* For Firefox */
     color:#6c757d;
-  }
+}
