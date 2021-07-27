@@ -170,39 +170,24 @@
         <div class="col-xl-4">
             <div class="suggested-people">
                 <h5>Suggested people</h5>
-
-                <div class="profile-card mb-3">
-                    <div class="row">
-                        <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
-                            <div class="profile-picture"
-                                style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80')">
+                {% for user in users %}
+                    <div class="profile-card mb-3">
+                        <div class="row">
+                            <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
+                                <div class="profile-picture"
+                                    style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80')">
+                                </div>
+                            </div>
+                            <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
+                                <span class="fw-bold text-capitalize">{{user.fullname}}</span>
+                                <p class="text-muted"> {{user.userdetail.about}}
+                                </p>
                             </div>
                         </div>
-                        <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
-                            <span class="fw-bold text-capitalize">name</span>
-                            <p class="text-muted"> lorem ipsum dolor sit amet
-                                torento rome italy
-                            </p>
-                        </div>
+                        <hr>
                     </div>
-                    <hr>
-                </div>
+                {% endfor %}
 
-                <div class="profile-card mb-3">
-                    <div class="row">
-                        <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
-                            <div class="profile-picture"
-                                style="background-image:url('https://images.unsplash.com/photo-1532074205216-d0e1f4b87368?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=381&q=80')">
-                            </div>
-                        </div>
-                        <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
-                            <span class="fw-bold text-capitalize">name</span>
-                            <p class="text-muted"> lorem ipsum dolor sit amet
-                                torento rome italy
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         </div>

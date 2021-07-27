@@ -54,3 +54,9 @@ class LoginForm(AuthenticationForm):
         label="Password"
     )
 
+class ProfileEditForm(forms.ModelForm):
+
+
+    class Meta:
+        model = models.UserDetail
+        fields = '__all__'

@@ -20,14 +20,15 @@ urlpatterns = [
     path('write/', views.create_post, name='write'),
     path('write/<int:post_id>/', views.create_post),
     path('publish/<int:post_id>', views.publish),
+    path('post/<int:post_id>', views.post),
 
     path('', views.home, name='home'),
-    path('post', views.post,name="post"),
+
     path('user', views.user, name="profile"),
+    path('profile-edit', views.profileEdit),
 
     #api
     path(r'api/', include(router.urls)),
-    path('post-write', api.PostWrite.as_view())
 
     
 ]

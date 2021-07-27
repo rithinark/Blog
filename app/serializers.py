@@ -15,7 +15,7 @@ class TagSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Post
-        fields =('id','tags','content', 'title','author','tumbnail','published_at')
+        fields =('id','tags','content', 'title','author','tumbnail')
         read_only_fields=['author']
         extra_kwargs = {'tags':{'required':False}}
 

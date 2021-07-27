@@ -25,6 +25,10 @@ def regist(request):
         form = forms.RegistForm(request.POST)
         if form.is_valid():
             form.save()
+            email = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=email, password=password)
+            auth_login(request, user)
             return redirect('home')
     else:
         form = forms.RegistForm()
@@ -40,19 +44,55 @@ def logout(request):
 
 #=======================================================page views=========================================================
 def home(request):
-    return render(request, 'home.html')
+    users = models.BlogUser.objects.all()[:5]
+    return render(request, 'home.html',{'users':users})
 
 
-def post(request):
-    return render(request, 'post.html')
+def post(request, post_id):
+    post = get_object_or_404(models.Post,id=post_id)
+    return render(request, 'post.html',{'post':post})
 
 
 def user(request):
-    return render(request, 'user.html')
+    if request.user.is_authenticated:
+        try:
+            user_details = request.user.userdetail
+        except:
+            user_details=None
+        posts = models.Post.objects.filter(author=request.user.id).exclude(is_draft=True)
+
+        data = [[], [], []]
+        counter = 0
+        for post in posts:
+            if counter == 3:
+                counter = 0
+            data[counter].append(post)
+            counter += 1
+
+        context = {
+            'user':request.user,
+            'user_details':user_details,
+            'posts':data,
+            'post_count':len(posts),
+        }
+
+        return render(request, 'user.html',context)
     
+
+def profileEdit(request):
+    if request.method == 'POST':
+        form = forms.ProfileEditForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('user')
+    else:
+        form = forms.ProfileEditForm()
+    return render(request, 'profile-edit.html',{'form':form})
+
+
 def create_post(request,post_id=None):
-    if post_id is None:
-        if request.user.is_authenticated:
+    if request.user.is_authenticated:
+        if post_id is None:
             try:
                 drafted_post = models.Post.objects.get(author=request.user, is_draft=True)
             except models.Post.DoesNotExist:
@@ -61,11 +101,12 @@ def create_post(request,post_id=None):
                 return redirect(f'/write/{drafted_post.id}')
             new_post = models.Post(author=request.user, is_draft=True)
             new_post.save()
-            return redirect(f'/write/{new_post.id}')
-        raise Http404
-    
-    drafted_post = get_object_or_404(models.Post, author=request.user, id=post_id)
-    return render (request, 'createpost.html',{'post':drafted_post})
+            return redirect(f'/write/{new_post.id}')    
+
+        drafted_post = get_object_or_404(models.Post, author=request.user, id=post_id)
+        return render (request, 'createpost.html',{'post':drafted_post})
+    raise Http404
+
 
 def publish(request, post_id):
     if post_id:

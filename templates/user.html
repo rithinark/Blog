@@ -12,14 +12,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                {% if user.is_authenticated %}
+                    {% if user.is_authenticated %}
                     <a href="/user" class="profile-picture" style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80');
                     height:40px;width:40px;"></a>
-                {% else %}
+                    {% else %}
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Sign in</a>
                     </li>
-                {% endif %}
+                    {% endif %}
                 </ul>
             </div>
 
@@ -36,13 +36,13 @@
             <div class="profile-details align-self-center px-4">
                 <div class="profile-header-card d-flex mb-3">
                     <div class="fs-4">
-                        Name
+                        {{user.fullname}}
                     </div>
-                    <button href="#" class="btn btn-sm btn-outline-dark ms-3">follow</button>
+                    <a href="/profile-edit" class="btn btn-sm btn-outline-dark ms-3">Edit</a>
                 </div>
                 <div class="profile-attributes d-flex mb-3">
                     <div class="post-number">
-                        153 posts
+                        {{post_count}} posts
                     </div>
                     <div class="post-followers px-3">
                         24.5k followers
@@ -52,9 +52,7 @@
                     </div>
                 </div>
                 <div class="profile-about">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    <p>{{user_details.about}}</p>
                 </div>
             </div>
         </div>
@@ -64,94 +62,45 @@
 
 <section class="container px-5">
     <div class="row">
+        {% for col in posts %}
         <div class="col-md-4">
+            {% for post in col %}
             <div class="card shadow bg-body rounded mb-4">
-                <img src="https://images.unsplash.com/photo-1441441247730-d09529166668?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
-                    class="card-img-top" alt="...">
-                <div class="card-body px-4">
-                    <small class="card-text text-muted">
-                        by&nbsp;<span>rithin</span>&nbsp;
-                        <span>November 23, 2021</span>
-                    </small>
+                <a href="/post/{{post.id}}" style="text-decoration: none;color:black">
+                    <img src="{{ post.tumbnail.url }}" class="card-img-top" alt="{{post.title}}">
+                
+                    <div class="card-body px-4">
+                        <small class="card-text text-muted">
+                            by&nbsp;<span>{{user.fullname}}</span>&nbsp;
+                            <span>{{post.published_at}}</span>
+                        </small>
 
-                    <h5 class="card-title fs-3 fw-bold">Post Title</h5>
-                    <p class="card-text text-muted">Some quick example text to build on the card title and
-                        make up the
-                        bulk of the card's content.
-                    </p>
-                    <div class="row post-votes">
-                        <div class="col-8 col-sm-8 col-md-6 col-lg-7 col-xl-8">
-                            <hr>
+                        <h5 class="card-title fs-3 fw-bold">{{post.title}}</h5>
+                        <p class="card-text text-muted">{{post.content|truncatechars:100}}
+                        </p>
+                        <div class="row post-votes">
+                            <div class="col-6 col-sm-8 col-md-5 col-lg-7 col-xl-8">
+                                <hr>
+                            </div>
+                            <div class="col-6 col-sm-4 col-md-7 col-lg-5 col-xl-4">
+                                <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
+                            </div>
                         </div>
-                        <div class="col-4 col-sm-4 col-md-6 col-lg-5 col-xl-4">
-                            <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
-                        </div>
+                        <p class="card-text text-muted">
+                            {% for tag in post.tags.all %}
+                            {% if forloop.last %}
+                            <span>{{tag.tags}}</span>
+                            {%else%}
+                            <span>{{tag.tags}}</span>,
+                            {% endif %}
+                            {% endfor %}
+                        </p>
                     </div>
-                    <p class="card-text text-muted">category</p>
-                </div>
+                </a>
             </div>
+            {%endfor%}
         </div>
-        <div class="col-md-4">
-            <div class="card shadow bg-body rounded mb-4">
-                <img src="https://images.unsplash.com/photo-1441441247730-d09529166668?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
-                    class="card-img-top" alt="...">
-                <div class="card-body px-4">
-                    <small class="card-text text-muted">
-                        by&nbsp;<span>rithin</span>&nbsp;
-                        <span>November 23, 2021</span>
-                    </small>
-
-                    <h5 class="card-title fs-3 fw-bold">Post Title</h5>
-                    <p class="card-text text-muted">Some quick example text to build on the card title and
-                        make up the
-                        bulk of the card's content.
-                    </p>
-                    <div class="row post-votes">
-                        <div class="col-8 col-sm-8 col-md-6 col-lg-7 col-xl-8">
-                            <hr>
-                        </div>
-                        <div class="col-4 col-sm-4 col-md-6 col-lg-5 col-xl-4">
-                            <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
-                        </div>
-                    </div>
-                    <p class="card-text text-muted">category</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow bg-body rounded mb-4">
-                <img src="https://images.unsplash.com/photo-1441441247730-d09529166668?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
-                    class="card-img-top" alt="...">
-                <div class="card-body px-4">
-                    <small class="card-text text-muted">
-                        by&nbsp;<span>rithin</span>&nbsp;
-                        <span>November 23, 2021</span>
-                    </small>
-
-                    <h5 class="card-title fs-3 fw-bold">Post Title</h5>
-                    <p class="card-text text-muted">Some quick example text to build on the card title and
-                        make up the
-                        bulk of the card's content.
-                    </p>
-                    <div class="row post-votes">
-                        <div class="col-8 col-sm-8 col-md-6 col-lg-7 col-xl-8">
-                            <hr>
-                        </div>
-                        <div class="col-4 col-sm-4 col-md-6 col-lg-5 col-xl-4">
-                            <span class="badge rounded-pill bg-secondary" href="#">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-caret-up-fill" viewBox="0 0 16 16">
-                                    <path
-                                        d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
-                                </svg>
-                                upvotes | 400</span>
-                        </div>
-                    </div>
-                    <p class="card-text text-muted">category</p>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </section>
-
 {% endblock %}

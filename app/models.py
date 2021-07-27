@@ -81,6 +81,7 @@ class BlogUser(AbstractBaseUser):
 
 
 class UserDetail(models.Model):
+    user = models.OneToOneField(BlogUser, on_delete=models.CASCADE)
     about = models.CharField(max_length=1000)
     profile_img = models.ImageField(upload_to='images/profiles')
 
