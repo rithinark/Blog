@@ -7,6 +7,10 @@ var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
 
 http = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
+  headers: {
+    "content-type": "multipart/form-data",
+    "X-CSRFToken": getCookie("csrftoken"),
+  },
 });
 async function getAll() {
   try {
@@ -71,9 +75,6 @@ function writePage() {
       put(form_data, ID);
     }
   });
-  image_uploadBtn.addEventListener("click", function () {
-    imgInput.click();
-  });
 
   postTitle = document.getElementById("create-post-title");
   var timeout = null;
@@ -116,6 +117,7 @@ function writePage() {
       let form_data = new FormData();
       data = postContent.innerHTML;
       form_data.append("content", data);
+      console.log(form_data.data);
       put(form_data, ID);
     }, 500);
   });
@@ -123,12 +125,134 @@ function writePage() {
   get(ID).then((elem) => {
     postContent.innerHTML = elem.content;
   });
-
-
 }
 
+function profileEditPage() {
+  const ID = document.URL.split("profile-edit/")[1];
+
+  const profilePicture = document.querySelector(".profile-picture");
+  const pictureInput = document.querySelector("#propicinput");
+  const pictureUpload = document.querySelector("#propicupload");
+
+  pictureInput.addEventListener("change", function () {
+    if (this.files && this.files[0]) {
+      const reader = new FileReader();
+      reader.addEventListener("load", function (event) {
+        profilePicture.setAttribute(
+          "style",
+          `background-image:url('${event.target.result}');`
+        );
+      });
+      reader.readAsDataURL(this.files[0]);
+    }
+  });
+}
+
+
+
+function postPage() {
+  const ID = document.URL.split("post/")[1];
+  const upvoteBtn = document.getElementById("upvote-btn");
+  const downvoteBtn = document.getElementById("downvote-btn");
+  const votes = document.getElementById("votes");
+
+  async function getVote(id) {
+    const response = await http.get("/vote/" + id);
+    return response.data;
+  }
+
+  async function getVoteCount() {
+    const response = await http.get("/vote/" + ID + "/");
+    console.log(response.data);
+    return response.data;
+  }
+  async function postVote(data) {
+    try {
+      const response = await http.post("/votes/", data, {
+        headers: {
+          "content-type": "application/json",
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function putVote(data, id) {
+    try {
+      const response = await http.put("/vote/" + id + "/", data, {
+        headers: {
+          "content-type": "multipart/form-data",
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function validateVote() {
+    const data = await getVote(ID);
+
+    getVoteCount().then((e) => (votes.innerText = e.votes_count));
+    if (data.vote === "UPVOTE") {
+      upvoteBtn.setAttribute("style", "color:blue");
+      downvoteBtn.setAttribute("style", "color:black");
+    } else if (data.vote === "DOWNVOTE") {
+      upvoteBtn.setAttribute("style", "color:black");
+      downvoteBtn.setAttribute("style", "color:blue");
+    } else {
+      upvoteBtn.setAttribute("style", "color:black");
+      downvoteBtn.setAttribute("style", "color:black");
+    }
+  }
+  validateVote();
+
+  upvoteBtn.addEventListener("click", async function () {
+    const data = await getVote(ID);
+    if (data && data.vote === "UPVOTE") {
+      await http.delete("vote/" + ID + "/");
+    } else if (data && data.vote === "DOWNVOTE") {
+      let form_data = new FormData();
+      form_data.append("vote", "UPVOTE");
+      await putVote(form_data, ID);
+    } else {
+      form_data = {
+        vote: "UPVOTE",
+        post: ID,
+      };
+      await postVote(form_data);
+    }
+
+    await validateVote();
+  });
+  downvoteBtn.addEventListener("click", async function () {
+    const data = await getVote(ID);
+    if (data && data.vote === "DOWNVOTE") {
+      await http.delete("vote/" + ID + "/");
+    } else if (data && data.vote === "UPVOTE") {
+      let form_data = new FormData();
+      form_data.append("vote", "DOWNVOTE");
+      await putVote(form_data, ID);
+    } else {
+      form_data = {
+        vote: "DOWNVOTE",
+        post: ID,
+      };
+      await postVote(form_data);
+    }
+
+    await validateVote();
+  });
+}
 window.addEventListener("load", function () {
   if (this.document.title === "write") {
     writePage();
+  } else if (this.document.title === "profile-edit") {
+    profileEditPage();
+  } else if (this.document.title === "post") {
+    postPage();
   }
 });

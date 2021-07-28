@@ -128,11 +128,12 @@ class Review(models.Model):
 class Vote(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     user = models.ForeignKey(BlogUser, on_delete=models.CASCADE)
-    vote = models.IntegerField(
+    vote = models.CharField(
         choices=(
             ('UPVOTE', 'upvote'),
             ('DOWNVOTE', 'downvote')
-        )
+        ),
+        max_length=8,
     )
 
 

@@ -1,5 +1,6 @@
 {% extends "boilerplate.html" %}
 {% load static %}
+{% block title %}profile-edit{% endblock %}
 {% block content %}
 
 <section class="top-section">
@@ -36,7 +37,8 @@
                     <div class="fs-4">
                         {{user.fullname}}
                     </div>
-                    <button class="btn btn-sm btn-outline-dark ms-3">Change Profile pic</button>
+                    <input type="file" class="invisible" id="propicinput" style="display:none;">
+                    <label for="propicinput" class="btn btn-outline-dark ms-3" id="propicupload">Choose Photo</label>
                 </div>
             </div>
         </div>
@@ -45,7 +47,10 @@
     <hr>
     <div class="profile-edit-form">
         <form method="POST">
-            
+            <div class="form-floating mb-1">
+                    <input type="text" name="" id="">
+                    <label for="{{ field.id_for_label }}">{{field.label}}</label>
+            </div>   
         </form>
     </div>
 </section>

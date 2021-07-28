@@ -7,6 +7,12 @@ class BlogUserSerializer(serializers.ModelSerializer):
         model = models.BlogUser
         fields =('email', 'password')
 
+class BlogUserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.UserDetail
+        fields= '__all__'
+
+        
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Tag
@@ -19,6 +25,11 @@ class PostSerializer(serializers.ModelSerializer):
         read_only_fields=['author']
         extra_kwargs = {'tags':{'required':False}}
 
+class VoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Vote
+        fields= '__all__'
 
-    
+
+
 

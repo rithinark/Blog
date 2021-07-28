@@ -7,6 +7,8 @@ from rest_framework import routers
 router = DefaultRouter()
 router.register(r'posts', api.PostViewSet, basename='post')
 router.register(r'tag', api.TagViewSet)
+router.register(r'userdetails', api.BlogUserDetails)
+
 
 
 
@@ -29,6 +31,9 @@ urlpatterns = [
 
     #api
     path(r'api/', include(router.urls)),
+    path(r'api/votes/', api.VoteList.as_view()),
+    path(r'api/vote/<int:post_id>/', api.VoteDetail.as_view())
+    
 
     
 ]

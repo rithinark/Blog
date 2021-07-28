@@ -25,10 +25,11 @@ def regist(request):
         form = forms.RegistForm(request.POST)
         if form.is_valid():
             form.save()
-            email = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password2')
             user = authenticate(username=email, password=password)
-            auth_login(request, user)
+            if user is not None:
+                auth_login(request, user)
             return redirect('home')
     else:
         form = forms.RegistForm()

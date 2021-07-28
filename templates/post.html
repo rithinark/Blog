@@ -1,5 +1,6 @@
 {% extends "boilerplate.html" %}
 {% load static %}
+{% block title %} post {%endblock%}
 {% block content %}
 
 <section class="top-section">
@@ -58,18 +59,19 @@
 
 <section class="review-section container mb-5 px-5">
     <div class="review-icons mb-5">
-        <a href="#">
+        <button type="button" id="upvote-btn" value="UPVOTE" class="pe-3 btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                 <path
                     d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
-            </svg>upvote 445</a>
-        <a class="px-3" href="#">
+            </svg>upvote</button>
+        <span id="votes">112</span>
+        <button type="button" value="DOWNVOTE" id="downvote-btn" class="px-3 btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                 <path
                     d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-            </svg>downvote 22</a>
+            </svg>downvote</button>
         <a data-bs-toggle="collapse" href="#collapseComment" role="button" aria-expanded="false"
             aria-controls="collapseComment">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left"
@@ -91,7 +93,7 @@
                 </div>
             </div>
             <div class="comment-body px-4 py-2">
-                <p id="add-comment" contentEditable="true" class="text-muted">comment</p>
+                <p id="add-comment" placeholder="comment"contentEditable="true" class="text-muted"></p>
 
             </div>
             <div class="respond-buttons d-flex flex-wrap justify-content-end p-3">
