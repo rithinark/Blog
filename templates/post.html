@@ -7,7 +7,7 @@
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid px-5">
 
-            
+
             <a class="fw-bold navbar-brand" href="#">{{post.author.fullname|title}}</a>
 
             <button class="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -24,9 +24,26 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item ps-3">
-                        <a class="nav-link active" aria-current="page" href="#">Sign in</a>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="profile-picture" style="width:30px;height:30px;"
+                                src='https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80'>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+                            aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a href="/user" class="dropdown-item" href="#">Profile</a></li>
+                            <li><a href="/write" class="dropdown-item" href="#">Write</a></li>
+                            <li><a href="logout" class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
                     </li>
+                    {% else %}
+                    <li class="nav-item mt-1">
+                        <a href="/login" class="nav-link active" aria-current="page" href="#">Sign in</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -35,14 +52,14 @@
 
 <section class="post-desc container px-5 mt-5">
     <div class="post-img py-4" style="width:100%">
-        <img style="width:100%; max-height:500px;object-fit:cover;"
-            src="{{post.tumbnail.url}}">
+        <img style="width:100%; max-height:500px;object-fit:cover;" src="{{post.tumbnail.url}}">
     </div>
     <div class="post-body">
         <div class="post-header py-4">
             <div class="post-title fs-3 fw-bold">{{post.title|title}}</div>
             <small class="post-details text-muted">
-                <div class="float-start"><span>by {{post.author.fullname}}</span>&emsp;<span>{{post.published_at}}</span></div>
+                <div class="float-start"><span>by
+                        {{post.author.fullname}}</span>&emsp;<span>{{post.published_at}}</span></div>
                 <div class="float-end"><span>{{post.tags.all|join:" "}}</span>&emsp;<span>comment</span></div>
             </small>
         </div>
@@ -72,7 +89,7 @@
                 <path
                     d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
             </svg>downvote</button>
-        <a data-bs-toggle="collapse" href="#collapseComment" role="button" aria-expanded="false"
+        <a id="comment-expand" data-bs-toggle="collapse" href="#collapseComment" role="button" aria-expanded="false"
             aria-controls="collapseComment">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left"
                 viewBox="0 0 16 16">
@@ -89,35 +106,37 @@
                         height:40px;width:40px;">
                 </div>
                 <div class="profile-detail ms-2 py-2">
-                    <div class="profile-name">Name</div>
+                    <div class="profile-name">{{user.fullname}}</div>
                 </div>
             </div>
             <div class="comment-body px-4 py-2">
-                <p id="add-comment" placeholder="comment"contentEditable="true" class="text-muted"></p>
+                <p id="add-comment" placeholder="comment" contentEditable="true" class="text-muted"></p>
 
             </div>
             <div class="respond-buttons d-flex flex-wrap justify-content-end p-3">
-                <input type="button" value="cancel" class="btn btn-sm btn-outline-danger rounded-pill">&nbsp;
-                <input type="submit" value="submit" class="btn btn-sm btn-success rounded-pill">
+                <input id="comment-cancel" type="button" value="cancel" class="btn btn-sm btn-outline-danger rounded-pill">&nbsp;
+                <input id="comment-submit" type="button" value="submit" class="btn btn-sm btn-success rounded-pill">
 
             </div>
         </div>
 
-        <div class="comment shadow-sm bg-body rounded">
-            <div class="profile-card d-flex flex-wrap">
-                <div class="profile-picture"
-                    style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80')">
+        <div class="comment-box">
+            {% for comment in comments%}
+                <div class="comment shadow-sm bg-body rounded">
+                    <div class="profile-card d-flex flex-wrap">
+                        <div class="profile-picture"
+                            style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="profile-detail ms-4 py-2">
+                            <div class="profile-name">{{comment.user.fullname}}</div>
+                            <small class="comment_at text-muted">over {{comment.created_at|timesince}} ago</small>
+                        </div>
+                    </div>
+                    <div class="comment-body ps-6">
+                        <p>{{comment.body}}</p>
+                    </div>
                 </div>
-                <div class="profile-detail ms-4 py-2">
-                    <div class="profile-name">Name</div>
-                    <small class="comment_at text-muted">over 3 years ago</small>
-                </div>
-            </div>
-            <div class="comment-body ps-6">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore quo amet eaque maxime recusandae
-                    aliquam delectus quasi perferendis tenetur illum, autem eligendi doloribus libero a accusamus id
-                    quos? Accusantium, harum?</p>
-            </div>
+            {% endfor %}
         </div>
 
     </div>

@@ -74,96 +74,38 @@
     <div class="row">
         <div class="col-xl-8 container">
             <div class="row posts recent-posts">
+                {% for col in posts %}
+                <div class="col-md-6">
+                    {% for post in col %}
+                    <a href="/post/{{post.id}}" style="text-decoration: none; color:black">
+                        <div class="card shadow bg-body rounded mb-4">
+                            <img src="{{post.tumbnail.url}}" class="card-img-top" alt="{{post.title}}">
+                            <div class="card-body px-4">
+                                <small class="card-text text-muted">
+                                    by&nbsp;<span>{{post.author.fullname}}</span>&nbsp;
+                                    <span>{{post.published_at|timesince}} ago </span>
+                                </small>
 
-                <div class="col-md-6 post">
-                    <div class="card shadow bg-body rounded mb-4">
-                        <img src="https://images.unsplash.com/photo-1441441247730-d09529166668?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
-                            class="card-img-top" alt="...">
-                        <div class="card-body px-4">
-                            <small class="card-text text-muted">
-                                by&nbsp;<span>rithin</span>&nbsp;
-                                <span>November 23, 2021</span>
-                            </small>
-
-                            <h5 class="card-title fs-3 fw-bold">Post Title</h5>
-                            <p class="card-text text-muted">Some quick example text to build on the card title and
-                                make up the
-                                bulk of the card's content.
-                            </p>
-                            <div class="row post-votes">
-                                <div class="col-8">
-                                    <hr>
+                                <h5 class="card-title fs-3 fw-bold">{{post.title}}</h5>
+                                <p class="card-text text-muted">
+                                    {{post.content|truncatechars:25}}
+                                </p>
+                                <div class="row post-votes">
+                                    <div class="col-8">
+                                        <hr>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="badge rounded-pill bg-secondary" href="#">upvotes |
+                                            {{post.getVotes}}</span>
+                                    </div>
                                 </div>
-                                <div class="col-4">
-                                    <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
-                                </div>
+                                <p class="card-text text-muted">category</p>
                             </div>
-                            <p class="card-text text-muted">category</p>
                         </div>
-                    </div>
-
-                    <div class="card shadow bg-body rounded mb-4">
-                        <img src="https://images.unsplash.com/photo-1466112928291-0903b80a9466?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1053&q=80"
-                            class="card-img-top" alt="...">
-                        <div class="card-body px-4">
-                            <small class="card-text text-muted">
-                                by&nbsp;<span>rithin</span>&nbsp;
-                                <span>November 23, 2021</span>
-                            </small>
-
-                            <h5 class="card-title fs-3 fw-bold">Post Title</h5>
-                            <p class="card-text text-muted">Some quick example text to build on the card title and
-                                make up the
-                                bulk of the card's content.
-                            </p>
-                            <div class="row post-votes">
-                                <div class="col-8">
-                                    <hr>
-                                </div>
-                                <div class="col-4">
-                                    <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
-                                </div>
-                            </div>
-                            <p class="card-text text-muted">category</p>
-                        </div>
-                    </div>
-
+                    </a>
+                    {% endfor %}
                 </div>
-
-
-                <div class="col-md-6 post">
-                    <div class="card shadow bg-body rounded mb-4">
-                        <img src="https://images.unsplash.com/photo-1626701594060-8329551e05bc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
-                            class="card-img-top" alt="...">
-                        <div class="card-body px-4">
-                            <small class="card-text text-muted">
-                                by&nbsp;<span>rithin</span>&nbsp;
-                                <span>November 23, 2021</span>
-                            </small>
-
-                            <h5 class="card-title fs-3 fw-bold">Post Title</h5>
-                            <p class="card-text text-muted">Some quick example text to build on the card title and
-                                make up the
-                                bulk of the card's content.
-                            </p>
-                            <div class="row post-votes">
-                                <div class="col-8">
-                                    <hr>
-                                </div>
-                                <div class="col-4">
-                                    <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
-                                </div>
-                            </div>
-                            <p class="card-text text-muted">category</p>
-                        </div>
-
-
-                    </div>
-                </div>
-
-                <div class="col-md-6 post mb-4">
-
-                </div>
+                {% endfor %}
             </div>
         </div>
         <!-----------------------------------------side panel----------------------------------------------------------->
@@ -171,21 +113,21 @@
             <div class="suggested-people">
                 <h5>Suggested people</h5>
                 {% for user in users %}
-                    <div class="profile-card mb-3">
-                        <div class="row">
-                            <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
-                                <div class="profile-picture"
-                                    style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80')">
-                                </div>
-                            </div>
-                            <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
-                                <span class="fw-bold text-capitalize">{{user.fullname}}</span>
-                                <p class="text-muted"> {{user.userdetail.about}}
-                                </p>
+                <div class="profile-card mb-3">
+                    <div class="row">
+                        <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
+                            <div class="profile-picture"
+                                style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80')">
                             </div>
                         </div>
-                        <hr>
+                        <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
+                            <span class="fw-bold text-capitalize">{{user.fullname}}</span>
+                            <p class="text-muted"> {{user.userdetail.about}}
+                            </p>
+                        </div>
                     </div>
+                    <hr>
+                </div>
                 {% endfor %}
 
             </div>

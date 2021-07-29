@@ -104,17 +104,17 @@ class Post(models.Model):
     def publish(self, *args, **kwargs):
         if not (self.content and self.tumbnail):
             return False
-        self.is_draft=False
+        self.is_draft = False
         self.published_at = timezone.now()
         super(Post, self).save(*args, **kwargs)
         return True
-
-
-        
-
-
-
-
+    
+    def getVotes(self):
+        uvotes = Vote.objects.filter(
+            post=self.id, vote='UPVOTE').count()
+        dvotes = Vote.objects.filter(
+            post=self.id, vote='DOWNVOTE').count()
+        return uvotes-dvotes
 
 
 class Review(models.Model):
@@ -135,6 +135,8 @@ class Vote(models.Model):
         ),
         max_length=8,
     )
+
+
 
 
 class Follower(models.Model):

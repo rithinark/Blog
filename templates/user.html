@@ -13,11 +13,23 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
-                    <a href="/user" class="profile-picture" style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80');
-                    height:40px;width:40px;"></a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="profile-picture" style="width:30px;height:30px;"
+                                src='https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80'>
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+                            aria-labelledby="navbarDarkDropdownMenuLink">
+                            <li><a href="/user" class="dropdown-item" href="#">Profile</a></li>
+                            <li><a href="/write" class="dropdown-item" href="#">Write</a></li>
+                            <li><a href="logout" class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </li>
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Sign in</a>
+                    <li class="nav-item mt-1">
+                        <a href="/login" class="nav-link active" aria-current="page" href="#">Sign in</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -68,7 +80,7 @@
             <div class="card shadow bg-body rounded mb-4">
                 <a href="/post/{{post.id}}" style="text-decoration: none;color:black">
                     <img src="{{ post.tumbnail.url }}" class="card-img-top" alt="{{post.title}}">
-                
+
                     <div class="card-body px-4">
                         <small class="card-text text-muted">
                             by&nbsp;<span>{{user.fullname}}</span>&nbsp;
@@ -83,7 +95,7 @@
                                 <hr>
                             </div>
                             <div class="col-6 col-sm-4 col-md-7 col-lg-5 col-xl-4">
-                                <span class="badge rounded-pill bg-secondary" href="#">upvotes | 400</span>
+                                <span class="badge rounded-pill bg-secondary" href="#">upvotes | {{post.getVotes}}</span>
                             </div>
                         </div>
                         <p class="card-text text-muted">

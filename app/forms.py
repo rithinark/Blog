@@ -35,7 +35,7 @@ class RegistForm(UserCreationForm):
 
     class Meta:
         model = models.BlogUser
-        fields = ('fullname','email')
+        fields = ('fullname', 'email')
 
 
 class LoginForm(AuthenticationForm):
@@ -54,8 +54,8 @@ class LoginForm(AuthenticationForm):
         label="Password"
     )
 
-class ProfileEditForm(forms.ModelForm):
 
+class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = models.UserDetail

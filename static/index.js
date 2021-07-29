@@ -4,6 +4,14 @@ var popoverTriggerList = [].slice.call(
 var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
   return new bootstrap.Popover(popoverTriggerEl);
 });
+const editor = document.querySelectorAll(".editor");
+editor.forEach((element) => {
+  element.addEventListener("paste", function (e) {
+    e.preventDefault();
+    var text = (e.originalEvent || e).clipboardData.getData("text/plain");
+    document.execCommand("insertHTML", false, text);
+  });
+});
 
 http = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
@@ -130,25 +138,37 @@ function writePage() {
 function profileEditPage() {
   const ID = document.URL.split("profile-edit/")[1];
 
-  const profilePicture = document.querySelector(".profile-picture");
+  const profilePicture = document.querySelectorAll(".profile-picture");
   const pictureInput = document.querySelector("#propicinput");
   const pictureUpload = document.querySelector("#propicupload");
-
+  function postProfileImage(data) {
+    const response = http.post("/userdetails/", data, {
+      headers: {
+        "content-type": "multipart/form-data",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+    });
+  }
   pictureInput.addEventListener("change", function () {
     if (this.files && this.files[0]) {
       const reader = new FileReader();
       reader.addEventListener("load", function (event) {
-        profilePicture.setAttribute(
-          "style",
-          `background-image:url('${event.target.result}');`
-        );
+        profilePicture.forEach((elem) => {
+          elem.setAttribute(
+            "style",
+            `background-image:url('${event.target.result}');`
+          );
+        });
       });
       reader.readAsDataURL(this.files[0]);
+      let form_data = new FormData();
+      form_data.append("about", "dummy");
+      form_data.append("profile_img", this.files[0]);
+      form_data.append("user", 1);
+      postProfileImage(form_data);
     }
   });
 }
-
-
 
 function postPage() {
   const ID = document.URL.split("post/")[1];
@@ -245,6 +265,33 @@ function postPage() {
     }
 
     await validateVote();
+  });
+  async function postReview(data) {
+    const response = await http.post("/reviews/" + ID + "/", data, {
+      headers: {
+        "content-type": "application/json",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+    });
+    return response.data;
+  }
+  const commentSubmit = document.getElementById("comment-submit");
+  const commentCancel = document.getElementById("comment-cancel");
+  const commentBody = document.getElementById("add-comment");
+  commentSubmit.addEventListener("click", function () {
+    if (commentBody && commentBody.innerText.trim() != "") {
+      data = {
+        body: commentBody.innerText,
+        post: ID,
+      };
+      postReview(data);
+    }
+  });
+
+  commentCancel.addEventListener("click", function () {
+    if (commentBody) {
+      commentBody.innerText = "";
+    }
   });
 }
 window.addEventListener("load", function () {

@@ -10,15 +10,13 @@ router.register(r'tag', api.TagViewSet)
 router.register(r'userdetails', api.BlogUserDetails)
 
 
-
-
 urlpatterns = [
-    #auth
+    # auth
     path('login', views.login, name='login'),
     path('regist', views.regist, name="sign up"),
     path('logout', views.logout, name="logout"),
 
-    #pages
+    # pages
     path('write/', views.create_post, name='write'),
     path('write/<int:post_id>/', views.create_post),
     path('publish/<int:post_id>', views.publish),
@@ -27,13 +25,15 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     path('user', views.user, name="profile"),
+    path('user/<int:user_id>', views.user, name="profile"),
     path('profile-edit', views.profileEdit),
 
-    #api
+    # api
     path(r'api/', include(router.urls)),
     path(r'api/votes/', api.VoteList.as_view()),
-    path(r'api/vote/<int:post_id>/', api.VoteDetail.as_view())
-    
+    path(r'api/vote/<int:post_id>/', api.VoteDetail.as_view()),
+    path(r'api/reviews/<int:post_id>/',api.ReviewList.as_view())
 
-    
+
+
 ]
