@@ -68,6 +68,9 @@ function writePage() {
   const image_uploadBtn = document.getElementById("image-upload");
   const imgInput = document.getElementById("img-uploadInput");
   const uploadImg = document.getElementById("uploadedImg");
+  const publishBtn = document.getElementById('publish-btn');
+
+
   imgInput.addEventListener("change", function () {
     if (this.files && this.files[0]) {
       var reader = new FileReader();
@@ -84,6 +87,12 @@ function writePage() {
     }
   });
 
+  publishBtn.addEventListener('click', function(){
+    let form_data = new FormData();
+    form_data.append('content',postContent.innerHTML);
+    form_data.append('title',postTitle.innerText);
+    put(form_data,ID)
+  })
   postTitle = document.getElementById("create-post-title");
   var timeout = null;
   function editableMaxLengthValidator(element, max_length) {
