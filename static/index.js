@@ -189,6 +189,7 @@ function postPage() {
   const upvoteBtn = document.getElementById("upvote-btn");
   const downvoteBtn = document.getElementById("downvote-btn");
   const votes = document.getElementById("votes");
+  const postDeleteBtn = document.getElementById('delete-post');
 
   async function getVote(id) {
     const response = await http.get("/vote/" + id);
@@ -295,6 +296,12 @@ function postPage() {
     }
 
   }
+
+  postDeleteBtn.addEventListener('click', async function(){
+    await http.delete('/posts/'+ID+'/');
+    window.location.href=document.location.origin
+
+  })
   const commentSubmit = document.getElementById("comment-submit");
   const commentCancel = document.getElementById("comment-cancel");
   const commentBody = document.getElementById("add-comment");

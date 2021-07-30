@@ -8,21 +8,23 @@
         <div class="container-fluid px-5">
 
 
-            <a class="fw-bold navbar-brand" href="#">{{post.author.fullname|title}}</a>
+            <a class="fw-bold navbar-brand" href="/user/{{post.author.id}}">{{post.author.fullname|title}}</a>
 
             <button class="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <!-- <ul class="navbar-nav">
+                <ul class="navbar-nav">
+                    {% if user == post.author %}
                     <li class="nav-item ps-3">
-                        <a class="nav-link active" aria-current="page" href="#">Followers</a>
+                        <a href="/write/{{post.id}}" class="nav-link active" aria-current="page" href="#">Edit</a>
                     </li>
                     <li class="nav-item ps-3">
-                        <a class="btn btn-dark active" aria-current="page" href="#">Follow</a>
+                        <a id="delete-post" class="btn btn-dark active" aria-current="page" href="#">delete</a>
                     </li>
-                </ul> -->
+                    {% endif %}
+                </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
