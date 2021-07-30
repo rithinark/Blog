@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
+from .image_processing import Image_processing
 from . import forms
 from . import models
 # Create your views here.
@@ -31,8 +32,10 @@ def regist(request):
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password2')
             user = authenticate(username=email, password=password)
-            if user is not None:
-                auth_login(request, user)
+            user_detail = models.UserDetail.objects.create(user=user, about="Hi there, I am a Blogger",
+            profile_img=Image_processing.createDefaultProfile(user.email))
+            user_detail.save()
+            auth_login(request, user)
             return redirect('home')
     else:
         form = forms.RegistForm()
@@ -57,17 +60,17 @@ def home(request):
             counter = 0
         data[counter].append(post)
         counter += 1
-    return render(request, 'home.html', {'users': users,'posts':data})
+    return render(request, 'home.html', {'users': users, 'posts': data})
 
 
 def post(request, post_id):
     post = get_object_or_404(models.Post, id=post_id)
     comments = models.Review.objects.filter(post=post_id)
 
-    return render(request, 'post.html', {'post': post, 'comments':comments})
+    return render(request, 'post.html', {'post': post, 'comments': comments})
 
 
-def user(request,user_id=None):
+def user(request, user_id=None):
 
     if user_id:
         user = get_object_or_404(models.BlogUser, id=user_id)
@@ -88,7 +91,7 @@ def user(request,user_id=None):
         data[counter].append(post)
         counter += 1
     context = {
-        'user': user,
+        'userP': user,
         'user_details': user_details,
         'posts': data,
         'post_count': len(posts),
@@ -124,7 +127,7 @@ def create_post(request, post_id=None):
         drafted_post = get_object_or_404(
             models.Post, author=request.user, id=post_id)
         return render(request, 'createpost.html', {'post': drafted_post})
-    return Http404
+    raise Http404
 
 
 def publish(request, post_id):

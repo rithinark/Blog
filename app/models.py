@@ -80,19 +80,21 @@ class BlogUser(AbstractBaseUser):
     objects = BlogUserManager()
 
 
+
+
+
 class UserDetail(models.Model):
     user = models.OneToOneField(BlogUser, on_delete=models.CASCADE)
     about = models.CharField(max_length=1000)
-    profile_img = models.ImageField(upload_to='images/profiles')
+    profile_img = models.ImageField(upload_to='images/profiles', null=True)
 
 
-class Tag(models.Model):
-    tags = models.CharField(max_length=16, unique=True)
+
 
 
 class Post(models.Model):
     author = models.ForeignKey(BlogUser, on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tag, blank=True)
+    # tags = models.ManyToManyField(Tag, blank=True)
     title = models.CharField(max_length=40, null=True)
     content = models.TextField(null=True)
     published_at = models.DateTimeField(null=True)
@@ -138,15 +140,17 @@ class Vote(models.Model):
 
 
 
+#===========================================need to include=================================================================
+# class Follower(models.Model):
+#     user = models.ForeignKey(
+#         BlogUser, on_delete=models.CASCADE, related_name='user')
+#     follower = models.ForeignKey(
+#         BlogUser, on_delete=models.CASCADE, related_name='follower')
+#     followed_on = models.DateTimeField()
+# class Tag(models.Model):
+#     tags = models.CharField(max_length=16, unique=True)
 
-class Follower(models.Model):
-    user = models.ForeignKey(
-        BlogUser, on_delete=models.CASCADE, related_name='user')
-    follower = models.ForeignKey(
-        BlogUser, on_delete=models.CASCADE, related_name='follower')
-    followed_on = models.DateTimeField()
 
-
-class BookMark(models.Model):
-    user = models.ForeignKey(BlogUser, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+# class BookMark(models.Model):
+#     user = models.ForeignKey(BlogUser, on_delete=models.CASCADE)
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE)

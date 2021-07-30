@@ -8,9 +8,6 @@ from rest_framework import permissions, viewsets, status
 from rest_framework.parsers import MultiPartParser, FormParser
 
 
-class BlogUserDetails(viewsets.ModelViewSet):
-    queryset = models.UserDetail.objects.all()
-    serializer_class = serializers.BlogUserDetailSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -21,12 +18,12 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.PostSerializer
 
 
-class TagViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-    parser_classes = [MultiPartParser, FormParser]
+# class TagViewSet(viewsets.ModelViewSet):
+#     permission_classes = [permissions.IsAuthenticated]
+#     parser_classes = [MultiPartParser, FormParser]
 
-    queryset = models.Tag.objects.all()
-    serializer_class = serializers.TagSerializer
+#     queryset = models.Tag.objects.all()
+#     serializer_class = serializers.TagSerializer
 
 
 class VoteList(APIView):
@@ -68,7 +65,7 @@ class VoteDetail(APIView):
             vote, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, post_id, format=None):
@@ -76,11 +73,13 @@ class VoteDetail(APIView):
         vote.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class ReviewList(APIView):
-   
+
     def post(self, request, post_id, format=None):
         request.data["user"] = request.user.id
-        review = models.Review.objects.filter(user=request.user.id, post=post_id)
+        review = models.Review.objects.filter(
+            user=request.user.id, post=post_id)
         if review:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         serializer = serializers.ReviewSerializer(data=request.data)
@@ -90,4 +89,24 @@ class ReviewList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class UserPictureDetails(APIView):
+    permission_classes = [IsGetOrIsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
         
+    def put(self, request, format=None):
+        user_detail = models.UserDetail.objects.filter(user=request.user).first()
+        serializer = serializers.BlogUserDetailSerializer(user_detail, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST )
+
+        
+      
+
+         
+
+
+class FollowView(APIView):
+    pass

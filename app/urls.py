@@ -6,8 +6,8 @@ from rest_framework import routers
 
 router = DefaultRouter()
 router.register(r'posts', api.PostViewSet, basename='post')
-router.register(r'tag', api.TagViewSet)
-router.register(r'userdetails', api.BlogUserDetails)
+# router.register(r'tag', api.TagViewSet)
+
 
 
 urlpatterns = [
@@ -17,12 +17,12 @@ urlpatterns = [
     path('logout', views.logout, name="logout"),
 
     # pages
+    path('', views.home, name='home'),
+
     path('write/', views.create_post, name='write'),
     path('write/<int:post_id>/', views.create_post),
     path('publish/<int:post_id>', views.publish),
     path('post/<int:post_id>', views.post),
-
-    path('', views.home, name='home'),
 
     path('user', views.user, name="profile"),
     path('user/<int:user_id>', views.user, name="profile"),
@@ -32,8 +32,7 @@ urlpatterns = [
     path(r'api/', include(router.urls)),
     path(r'api/votes/', api.VoteList.as_view()),
     path(r'api/vote/<int:post_id>/', api.VoteDetail.as_view()),
-    path(r'api/reviews/<int:post_id>/',api.ReviewList.as_view())
-
-
+    path(r'api/reviews/<int:post_id>/',api.ReviewList.as_view()),
+    path(r'api/userdetails/',api.UserPictureDetails.as_view())
 
 ]

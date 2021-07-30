@@ -14,7 +14,7 @@ editor.forEach((element) => {
 });
 
 http = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  baseURL: document.location.origin + "/api",
   headers: {
     "content-type": "multipart/form-data",
     "X-CSRFToken": getCookie("csrftoken"),
@@ -135,14 +135,16 @@ function writePage() {
   });
 }
 
+//====================================================profile-Edit-Page==============================================
 function profileEditPage() {
   const ID = document.URL.split("profile-edit/")[1];
 
   const profilePicture = document.querySelectorAll(".profile-picture");
   const pictureInput = document.querySelector("#propicinput");
   const pictureUpload = document.querySelector("#propicupload");
-  function postProfileImage(data) {
-    const response = http.post("/userdetails/", data, {
+
+  async function postProfileImage(data) {
+    const response = await http.put("/userdetails/", data, {
       headers: {
         "content-type": "multipart/form-data",
         "X-CSRFToken": getCookie("csrftoken"),
@@ -162,9 +164,7 @@ function profileEditPage() {
       });
       reader.readAsDataURL(this.files[0]);
       let form_data = new FormData();
-      form_data.append("about", "dummy");
       form_data.append("profile_img", this.files[0]);
-      form_data.append("user", 1);
       postProfileImage(form_data);
     }
   });
@@ -267,24 +267,39 @@ function postPage() {
     await validateVote();
   });
   async function postReview(data) {
-    const response = await http.post("/reviews/" + ID + "/", data, {
-      headers: {
-        "content-type": "application/json",
-        "X-CSRFToken": getCookie("csrftoken"),
-      },
-    });
+    try {
+      const response = await http.post("/reviews/" + ID + "/", data, {
+        headers: {
+          "content-type": "application/json",
+          "X-CSRFToken": getCookie("csrftoken"),
+        },
+      });
+
     return response.data;
+    } catch(error){
+      return false;
+    }
+
   }
   const commentSubmit = document.getElementById("comment-submit");
   const commentCancel = document.getElementById("comment-cancel");
   const commentBody = document.getElementById("add-comment");
-  commentSubmit.addEventListener("click", function () {
+  const commentBox = document.getElementById('comment');
+  commentSubmit.addEventListener("click", async function () {
     if (commentBody && commentBody.innerText.trim() != "") {
       data = {
         body: commentBody.innerText,
         post: ID,
       };
-      postReview(data);
+      const check=await postReview(data)
+      if(check){
+        window.location.reload();
+      } else {
+        commentBox.setAttribute('style','border: 3px solid red;')
+        setTimeout(function(){
+          commentBox.setAttribute('style','border: 0')
+        },1000)
+      }
     }
   });
 
@@ -303,3 +318,6 @@ window.addEventListener("load", function () {
     postPage();
   }
 });
+
+
+

@@ -19,7 +19,7 @@
 
 
                     {% if user.is_authenticated %}
-                    <a href="/user" class="profile-picture" style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80');
+                    <a href="/user" class="profile-picture" style="background-image:url('{{user.userdetail.profile_img.url}}');
                             height:40px;width:40px;"></a>
                     {% else %}
                     <li class="nav-item">

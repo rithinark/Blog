@@ -12,16 +12,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <form>
+                    <!-- <form>
                         <input class="search-bar mt-2 me-2" type="search" placeholder="Search" aria-label="Search" />
                         <input type="submit" class="visually-hidden" tabindex="-1" />
-                    </form>
+                    </form> -->
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="profile-picture" style="width:30px;height:30px;"
-                                src='https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80'>
+                            <img class="profile-picture" style="width:45px;height:45px;"
+                                src='{{user.userdetail.profile_img.url}}'>
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
@@ -43,34 +43,18 @@
     <div class="bg-title container">
         <div class="text-center boxed" style="color:white;">
             <h1>WELCOME</h1>
-            <p>lorem ipsum dolor sit</p>
         </div>
     </div>
 
 </section>
 
-<section class="container search-tags category my-5">
+<!-- <section class="container search-tags category my-5">
     <div class="tags d-flex flex-wrap ">
         <a href="#" class="tag rounded-pill text-muted m-2">All</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">All</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-            class="tag rounded-pill text-muted m-2">All</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-            class="tag rounded-pill text-muted m-2">All</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-            class="tag rounded-pill text-muted m-2">All</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">All</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-            class="tag rounded-pill text-muted m-2">All</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a> <a href="#"
-            class="tag rounded-pill text-muted m-2">All</a>
-        <a href="#" class="tag rounded-pill text-muted m-2">ipsum</a>
     </div>
-</section>
+</section> -->
 
-<section class="container main-section">
+<section class="container main-section my-5">
     <div class="row">
         <div class="col-xl-8 container">
             <div class="row posts recent-posts">
@@ -114,24 +98,24 @@
                 <h5>Suggested people</h5>
                 {% for user in users %}
                 <div class="profile-card mb-3">
-                    <div class="row">
-                        <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
-                            <div class="profile-picture"
-                                style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80')">
+                    <a href="/user/{{user.id}}" style="text-decoration:none;color:black;">
+                        <div class="row">
+                            <div class="col-2 col-sm-2 col-lg-1 col-xl-3">
+                                <div class="profile-picture"
+                                    style="background-image:url('{{user.userdetail.profile_img.url}}')">
+                                </div>
+                            </div>
+                            <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
+                                <span class="fw-bold text-capitalize">{{user.fullname}}</span>
+                                <p class="text-muted"> {{user.userdetail.about}}
+                                </p>
                             </div>
                         </div>
-                        <div class="col-10 col-sm-10 col-lg-11 col-xl-9 mt-1">
-                            <span class="fw-bold text-capitalize">{{user.fullname}}</span>
-                            <p class="text-muted"> {{user.userdetail.about}}
-                            </p>
-                        </div>
-                    </div>
+                    </a>
                     <hr>
                 </div>
                 {% endfor %}
-
             </div>
-
         </div>
     </div>
 

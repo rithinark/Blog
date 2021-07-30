@@ -14,18 +14,18 @@ class BlogUserDetailSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TagSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Tag
-        fields = '__all__'
+# class TagSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = models.Tag
+#         fields = '__all__'
 
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Post
-        fields = ('id', 'tags', 'content', 'title', 'author', 'tumbnail')
+        fields = ('id', 'content', 'title', 'author', 'tumbnail')
         read_only_fields = ['author']
-        extra_kwargs = {'tags': {'required': False}}
+        # extra_kwargs = {'tags': {'required': False}}
 
 
 class VoteSerializer(serializers.ModelSerializer):

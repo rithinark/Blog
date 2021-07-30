@@ -17,7 +17,7 @@
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <img class="profile-picture" style="width:30px;height:30px;"
-                                src='https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80'>
+                                src=' {{user.userdetail.profile_img.url}}'>
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
@@ -42,26 +42,37 @@
 <section class="container px-5 mt-5">
     <div class="profile-header d-flex flex-wrap">
         <div class="profile-card d-flex flex-wrap px-4 pt-2 justify-content-center">
-            <div class="profile-picture mb-3" style="background-image:url('https://images.unsplash.com/photo-1497316730643-415fac54a2af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80');
+            <div class="profile-picture mb-3" style="background-image:url('{{user.userdetail.profile_img.url}}');
                     height:150px;width:150px;">
             </div>
             <div class="profile-details align-self-center px-4">
                 <div class="profile-header-card d-flex mb-3">
                     <div class="fs-4">
-                        {{user.fullname}}
+                        {{userP.fullname}}
                     </div>
-                    <a href="/profile-edit" class="btn btn-sm btn-outline-dark ms-3">Edit</a>
+
+                    {% if user == userP %}
+                        <a href="/profile-edit" class="btn btn-sm btn-outline-dark ms-3">Edit</a>
+                    {% comment %}
+                        {% else %}
+                        <span class="btn">Followers</span>
+                        <a class="btn btn-dark active" aria-current="page" href="#">Follow</a>
+                    {% endcomment %}
+
+                    {% endif %}
+
+
                 </div>
                 <div class="profile-attributes d-flex mb-3">
                     <div class="post-number">
                         {{post_count}} posts
                     </div>
-                    <div class="post-followers px-3">
+                    <!-- <div class="post-followers px-3">
                         24.5k followers
                     </div>
                     <div class="post-following">
                         4 following
-                    </div>
+                    </div> -->
                 </div>
                 <div class="profile-about">
                     <p>{{user_details.about}}</p>
@@ -95,7 +106,8 @@
                                 <hr>
                             </div>
                             <div class="col-6 col-sm-4 col-md-7 col-lg-5 col-xl-4">
-                                <span class="badge rounded-pill bg-secondary" href="#">upvotes | {{post.getVotes}}</span>
+                                <span class="badge rounded-pill bg-secondary" href="#">upvotes |
+                                    {{post.getVotes}}</span>
                             </div>
                         </div>
                         <p class="card-text text-muted">
