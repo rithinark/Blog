@@ -142,7 +142,8 @@ function profileEditPage() {
   const profilePicture = document.querySelectorAll(".profile-picture");
   const pictureInput = document.querySelector("#propicinput");
   const pictureUpload = document.querySelector("#propicupload");
-
+  const aboutSubmit = document.getElementById('about-submit');
+  const aboutField = document.getElementById('about-user');
   async function postProfileImage(data) {
     const response = await http.put("/userdetails/", data, {
       headers: {
@@ -150,6 +151,7 @@ function profileEditPage() {
         "X-CSRFToken": getCookie("csrftoken"),
       },
     });
+    return response.data;
   }
   pictureInput.addEventListener("change", function () {
     if (this.files && this.files[0]) {
@@ -168,6 +170,18 @@ function profileEditPage() {
       postProfileImage(form_data);
     }
   });
+  aboutSubmit.addEventListener("click", async function(){
+    if (aboutField && aboutField.innerText.trim() != ""){
+      let form_data = new FormData();
+      form_data.append("about", aboutField.innerText);
+      await postProfileImage(form_data);
+      
+
+    }
+  })
+
+
+
 }
 
 function postPage() {

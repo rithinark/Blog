@@ -94,8 +94,8 @@
 
                     <div class="card-body px-4">
                         <small class="card-text text-muted">
-                            by&nbsp;<span>{{user.fullname}}</span>&nbsp;
-                            <span>{{post.published_at}}</span>
+                            by&nbsp;<span>{{userP.fullname}}</span>&nbsp;
+                            <span>{{post.published_at|timesince}}</span>
                         </small>
 
                         <h5 class="card-title fs-3 fw-bold">{{post.title}}</h5>

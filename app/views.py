@@ -33,7 +33,7 @@ def regist(request):
             password = form.cleaned_data.get('password2')
             user = authenticate(username=email, password=password)
             user_detail = models.UserDetail.objects.create(user=user, about="Hi there, I am a Blogger",
-            profile_img=Image_processing.createDefaultProfile(user.email))
+            profile_img=Image_processing.createDefaultProfile(user))
             user_detail.save()
             auth_login(request, user)
             return redirect('home')

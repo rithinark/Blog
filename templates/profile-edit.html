@@ -16,8 +16,8 @@
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
 
-                        <a class="nav-link dropdown-toggle d-flex invisible" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle d-flex invisible" href="#" id="navbarDarkDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="profile-picture visible" style="background-image:url('{{user.userdetail.profile_img.url}}');
                                 height:50px;width:50px;">
                             </div>
@@ -50,7 +50,7 @@
                 <div class="profile-header-card d-flex mb-3">
                     <div class="fs-4">
                         {{user.fullname}}
-                       
+
                     </div>
                     <input type="file" class="invisible" id="propicinput" style="display:none;">
                     <label for="propicinput" class="btn btn-outline-dark ms-3" id="propicupload">Choose Photo</label>
@@ -61,23 +61,18 @@
     </div>
     <hr>
     <div class="profile-edit-form">
-        <form method="POST">
-            <div class="mb-3 row">
-                <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="inputUsername">
-                </div>
-            </div>
-            <div class="form-floating">
-                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                <label for="floatingTextarea">About</label>
-            </div>
-            <div class="updation-btn mt-5">
-                <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>
-                <button type="submit" class="btn btn-outline-danger btn-sm">Cancel</button>
-                <button type="submit" class="btn btn-outline-dark btn-sm float-end">Change Password</button>
-            </div>
-        </form>
+
+        <div class="form-floating">
+            <div contenteditable="true" class="form-control" placeholder="talk about yourself" id="about-user"></div>
+            <label for="floatingTextarea">About</label>
+        </div>
+        <div class="updation-btn mt-5">
+            <button id="about-submit" type="button" class="btn btn-outline-primary btn-sm">Submit</button>
+            <button id="about-cancel" type="button" class="btn btn-outline-danger btn-sm">Cancel</button>
+            <button id="change-password" type="button" class="btn btn-outline-dark btn-sm float-end">Change
+                Password</button>
+        </div>
+
     </div>
 </section>
 

@@ -11,8 +11,9 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsGetOrIsAuthenticated]
     parser_classes = [MultiPartParser, FormParser]
+
 
     queryset = models.Post.objects.all()
     serializer_class = serializers.PostSerializer
@@ -27,6 +28,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class VoteList(APIView):
+    permission_classes = [IsGetOrIsAuthenticated]
 
     def post(self, request, formate=None):
         request.data["user"] = request.user.id
@@ -40,7 +42,7 @@ class VoteList(APIView):
 class VoteDetail(APIView):
 
     permission_classes = [IsGetOrIsAuthenticated]
-    parser_classes = [MultiPartParser, FormParser]
+
 
     def get_object(self, user_id, post_id):
         try:
@@ -75,6 +77,8 @@ class VoteDetail(APIView):
 
 
 class ReviewList(APIView):
+    permission_classes = [IsGetOrIsAuthenticated]
+
 
     def post(self, request, post_id, format=None):
         request.data["user"] = request.user.id
