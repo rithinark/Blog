@@ -218,9 +218,8 @@ function postPage() {
           "X-CSRFToken": getCookie("csrftoken"),
         },
       });
-      console.log(response);
     } catch (error) {
-      console.log(error);
+      window.location.href='/login';
     }
   }
 

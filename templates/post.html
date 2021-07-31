@@ -101,7 +101,7 @@
         </a>
     </div>
     <div class="comment-section collapse" id="collapseComment">
-
+        {% if user.is_authenticated %}
         <div class="comment shadow bg-body rounded mb-3" id="comment">
             <div class="profile-card d-flex flex-wrap px-4 pt-2">
                 <div class="profile-picture" style="background-image:url('{{user.userdetail.profile_img.url}}');
@@ -121,6 +121,7 @@
 
             </div>
         </div>
+        {% endif %}
 
         <div class="comment-box">
             {% for comment in comments%}
