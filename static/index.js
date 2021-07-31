@@ -68,8 +68,7 @@ function writePage() {
   const image_uploadBtn = document.getElementById("image-upload");
   const imgInput = document.getElementById("img-uploadInput");
   const uploadImg = document.getElementById("uploadedImg");
-  const publishBtn = document.getElementById('publish-btn');
-
+  const publishBtn = document.getElementById("publish-btn");
 
   imgInput.addEventListener("change", function () {
     if (this.files && this.files[0]) {
@@ -87,12 +86,12 @@ function writePage() {
     }
   });
 
-  publishBtn.addEventListener('click', function(){
+  publishBtn.addEventListener("click", function () {
     let form_data = new FormData();
-    form_data.append('content',postContent.innerHTML);
-    form_data.append('title',postTitle.innerText);
-    put(form_data,ID)
-  })
+    form_data.append("content", postContent.innerHTML);
+    form_data.append("title", postTitle.innerText);
+    put(form_data, ID);
+  });
   postTitle = document.getElementById("create-post-title");
   var timeout = null;
   function editableMaxLengthValidator(element, max_length) {
@@ -151,8 +150,8 @@ function profileEditPage() {
   const profilePicture = document.querySelectorAll(".profile-picture");
   const pictureInput = document.querySelector("#propicinput");
   const pictureUpload = document.querySelector("#propicupload");
-  const aboutSubmit = document.getElementById('about-submit');
-  const aboutField = document.getElementById('about-user');
+  const aboutSubmit = document.getElementById("about-submit");
+  const aboutField = document.getElementById("about-user");
   async function postProfileImage(data) {
     const response = await http.put("/userdetails/", data, {
       headers: {
@@ -179,18 +178,13 @@ function profileEditPage() {
       postProfileImage(form_data);
     }
   });
-  aboutSubmit.addEventListener("click", async function(){
-    if (aboutField && aboutField.innerText.trim() != ""){
+  aboutSubmit.addEventListener("click", async function () {
+    if (aboutField && aboutField.innerText.trim() != "") {
       let form_data = new FormData();
       form_data.append("about", aboutField.innerText);
       await postProfileImage(form_data);
-      
-
     }
-  })
-
-
-
+  });
 }
 
 function postPage() {
@@ -198,7 +192,7 @@ function postPage() {
   const upvoteBtn = document.getElementById("upvote-btn");
   const downvoteBtn = document.getElementById("downvote-btn");
   const votes = document.getElementById("votes");
-  const postDeleteBtn = document.getElementById('delete-post');
+  const postDeleteBtn = document.getElementById("delete-post");
 
   async function getVote(id) {
     const response = await http.get("/vote/" + id);
@@ -219,7 +213,7 @@ function postPage() {
         },
       });
     } catch (error) {
-      window.location.href='/login';
+      window.location.href = "/login";
     }
   }
 
@@ -298,36 +292,34 @@ function postPage() {
         },
       });
 
-    return response.data;
-    } catch(error){
+      return response.data;
+    } catch (error) {
       return false;
     }
-
   }
 
-  postDeleteBtn.addEventListener('click', async function(){
-    await http.delete('/posts/'+ID+'/');
-    window.location.href=document.location.origin
-
-  })
+  postDeleteBtn.addEventListener("click", async function () {
+    await http.delete("/posts/" + ID + "/");
+    window.location.href = document.location.origin;
+  });
   const commentSubmit = document.getElementById("comment-submit");
   const commentCancel = document.getElementById("comment-cancel");
   const commentBody = document.getElementById("add-comment");
-  const commentBox = document.getElementById('comment');
+  const commentBox = document.getElementById("comment");
   commentSubmit.addEventListener("click", async function () {
     if (commentBody && commentBody.innerText.trim() != "") {
       data = {
         body: commentBody.innerText,
         post: ID,
       };
-      const check=await postReview(data)
-      if(check){
+      const check = await postReview(data);
+      if (check) {
         window.location.reload();
       } else {
-        commentBox.setAttribute('style','border: 3px solid red;')
-        setTimeout(function(){
-          commentBox.setAttribute('style','border: 0')
-        },1000)
+        commentBox.setAttribute("style", "border: 3px solid red;");
+        setTimeout(function () {
+          commentBox.setAttribute("style", "border: 0");
+        }, 1000);
       }
     }
   });
@@ -347,6 +339,3 @@ window.addEventListener("load", function () {
     postPage();
   }
 });
-
-
-
