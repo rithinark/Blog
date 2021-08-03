@@ -1,0 +1,28 @@
+{% for col in objects %}
+<div class="col-md-6">
+    {% for object in col %}
+    <a href="{% url 'post' object.id %}" style="text-decoration: none; color: black">
+        <div class="card shadow bg-body rounded mb-4">
+            <img src="{{object.tumbnail.url}}" class="card-img-top" alt="{{object.title}}" />
+            <div class="card-body px-4">
+                <small class="card-text text-muted">
+                    by&nbsp;<span>{{object.author.fullname}}</span>&nbsp;
+                    <span>{{object.published_at|timesince}} ago </span>
+                </small>
+                <h5 class="card-title fs-3 fw-bold">{objectt.title}}</h5>
+                <p class="card-text text-muted">
+                    {{object.content|truncatechars:25}}
+                </p>
+                <div class="post-votes d-flex align-items-center">
+                    <div class="me-4"
+                        style="background-color: rgb(173, 173, 173); width:90%;height:1px"></div>
+                    <span class="badge rounded-pill bg-secondary">upvotes |
+                        {{object.getVotes}}</span>
+                </div>
+                <p class="card-text text-muted">category</p>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endfor %}

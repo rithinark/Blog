@@ -1,77 +1,61 @@
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.http.response import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
-from .image_processing import Image_processing
-from . import forms
 from . import models
-# Create your views here.
+from authentication import forms
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.template import loader
 
-# ===================================================auth views============================================================
+
+# ====================================================methods==============================================================
+def split(queryset, n):
+    q, r = divmod(len(queryset), n)
+    return (queryset[i*q+min(i, r):(i+1)*q+min(i+1, r)] for i in range(n))
+
+def lazy_load(page, model, results_per_page):
+    objects = model.objects.all()
+    paginator = Paginator(objects, results_per_page)
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(2)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    splitted_objects = split(objects, 3)
+    objects_html = loader.render_to_string(
+        'lazy_load_template.html',
+        {'objects':splitted_objects}
+    )
+    return JsonResponse(
+        {
+            'objects_html':objects_html,
+            'has_next':objects.has_next()
+        }
+    )
+# =========================================================================================================================
 
 
-def login(request):
-    if request.POST:
-        form = forms.LoginForm(request=request, data=request.POST)
-        if form.is_valid():
-            email = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=email, password=password)
-            if user is not None:
-                auth_login(request, user)
-                return redirect('home')
+
+    
+
+
+def home(request, page=None):
+    if page is None:
+        users = models.BlogUser.objects.all()[:10]
+        posts = models.Post.objects.filter(is_draft=False)[:8]
+        data = split(posts, 2) if posts else None
+        return render(request, 'home.html', {'users': users, 'posts': data})
     else:
-        form = forms.LoginForm()
-    return render(request, 'auth/login.html', {'form': form})
-
-
-def regist(request):
-    if request.POST:
-        form = forms.RegistForm(request.POST)
-        if form.is_valid():
-            form.save()
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password2')
-            user = authenticate(username=email, password=password)
-            user_detail = models.UserDetail.objects.create(user=user, about="Hi there, I am a Blogger",
-            profile_img=Image_processing.createDefaultProfile(user))
-            user_detail.save()
-            auth_login(request, user)
-            return redirect('home')
-    else:
-        form = forms.RegistForm()
-
-    return render(request, 'auth/regist.html', {"form": form})
-
-
-def logout(request):
-    auth_logout(request=request)
-    return redirect('home')
-
-
-# =======================================================page views=========================================================
-def home(request):
-    users = models.BlogUser.objects.all()[:5]
-    posts = models.Post.objects.filter(is_draft=False)[:5]
-
-    data = [[], [], []]
-    counter = 0
-    for post in posts:
-        if counter == 2:
-            counter = 0
-        data[counter].append(post)
-        counter += 1
-    return render(request, 'home.html', {'users': users, 'posts': data})
+        return lazy_load(page, models.Post, 10)
 
 
 def post(request, post_id):
     post = get_object_or_404(models.Post, id=post_id)
     comments = models.Review.objects.filter(post=post_id)
-
     return render(request, 'post.html', {'post': post, 'comments': comments})
 
 
 def user(request, user_id=None):
-
     if user_id:
         user = get_object_or_404(models.BlogUser, id=user_id)
     else:
@@ -83,13 +67,7 @@ def user(request, user_id=None):
     posts = models.Post.objects.filter(
         author=user.id).exclude(is_draft=True)
 
-    data = [[], [], []]
-    counter = 0
-    for post in posts:
-        if counter == 3:
-            counter = 0
-        data[counter].append(post)
-        counter += 1
+    data = split(posts, 3) if posts else None
     context = {
         'userP': user,
         'user_details': user_details,
@@ -134,5 +112,5 @@ def publish(request, post_id):
     if post_id:
         post = models.Post.objects.get(id=post_id)
         if post and post.publish():
-            return redirect('profile')
+            return redirect('user')
     return redirect('write')

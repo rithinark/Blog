@@ -1,16 +1,17 @@
 from rest_framework import serializers
-from . import models
+from authentication import models as authmodels
+from app import models
 
 
 class BlogUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.BlogUser
+        model = authmodels.BlogUser
         fields = ('email', 'password')
 
 
 class BlogUserDetailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.UserDetail
+        model = authmodels.UserDetail
         fields = '__all__'
 
 

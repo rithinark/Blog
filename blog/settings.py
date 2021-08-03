@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'api.apps.ApiConfig',
     'app.apps.AppConfig',
+    'authentication.apps.AuthenticationConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -139,11 +142,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 MEDIA_URL = '/media/'
 
-AUTH_USER_MODEL = 'app.BlogUser'
+AUTH_USER_MODEL = 'authentication.BlogUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'app.permissions.IsGetOrIsAuthenticated',
+        'api.permissions.IsGetOrIsAuthenticated',
     )
 }
 CORS_ORIGIN_ALLOW_ALL = False

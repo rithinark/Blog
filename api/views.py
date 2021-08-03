@@ -1,6 +1,6 @@
 from django.http.response import Http404
 from rest_framework.response import Response
-from . import models
+from app import models
 from .import serializers
 from .permissions import IsGetOrIsAuthenticated
 from rest_framework.views import APIView

@@ -5,35 +5,32 @@
 <section class="home top-section">
     <nav class="navbar navbar-expand navbar-dark">
         <div class="container-fluid px-5">
-            <a class="fw-bold navbar-brand" href="">INFOBLOG</a>
-            <button class="navbar-toggler nav-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="fw-bold navbar-brand" href="/">INFOBLOG</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <!-- <form>
-                        <input class="search-bar mt-2 me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <input type="submit" class="visually-hidden" tabindex="-1" />
-                    </form> -->
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <img class="profile-picture" style="width:45px;height:45px;"
-                                src='{{user.userdetail.profile_img.url}}'>
+                        <a class="nav-link dropdown-toggle invisible" id="navbarDarkDropdownMenuLink"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img class="profile-picture visible" style="width: 45px; height: 45px"
+                                src="{{user.userdetail.profile_img.url}}" />
                         </a>
-
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
                             aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a href="/user" class="dropdown-item" href="#">Profile</a></li>
-                            <li><a href="/write" class="dropdown-item" href="#">Write</a></li>
-                            <li><a href="logout" class="dropdown-item" href="#">Logout</a></li>
+                            <li>
+                                <a href="{% url 'user' %}" class="dropdown-item">Profile</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'write' %}" class="dropdown-item">Write</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+                            </li>
                         </ul>
                     </li>
                     {% else %}
                     <li class="nav-item mt-1">
-                        <a href="/login" class="nav-link active" aria-current="page" href="#">Sign in</a>
+                        <a href="{% url 'login' %}" class="nav-link active" aria-current="page">Sign in</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -41,51 +38,44 @@
         </div>
     </nav>
     <div class="bg-title container">
-        <div class="text-center boxed" style="color:white;">
+        <div class="text-center boxed" style="color: white">
             <h1>WELCOME</h1>
         </div>
     </div>
-
 </section>
 
-<!-- <section class="container search-tags category my-5">
-    <div class="tags d-flex flex-wrap ">
-        <a href="#" class="tag rounded-pill text-muted m-2">All</a>
-    </div>
-</section> -->
+
 
 <section class="container main-section my-5">
-
     <div class="row">
+        <!-----------------------------------------center----------------------------------------------------------->
         <div class="col-xl-8 container">
+
             <div class="row posts recent-posts">
-                {% if not posts.0 %}
-                <div class="text-center">nothing to show</div>
+                {% if not posts %}
+                <div class="text-center fs-6 my-5">nothing to show</div>
                 {% endif %}
+
                 {% for col in posts %}
                 <div class="col-md-6">
                     {% for post in col %}
-                    <a href="/post/{{post.id}}" style="text-decoration: none; color:black">
+                    <a href="{% url 'post' post.id %}" style="text-decoration: none; color: black">
                         <div class="card shadow bg-body rounded mb-4">
-                            <img src="{{post.tumbnail.url}}" class="card-img-top" alt="{{post.title}}">
+                            <img src="{{post.tumbnail.url}}" class="card-img-top" alt="{{post.title}}" />
                             <div class="card-body px-4">
                                 <small class="card-text text-muted">
                                     by&nbsp;<span>{{post.author.fullname}}</span>&nbsp;
                                     <span>{{post.published_at|timesince}} ago </span>
                                 </small>
-
                                 <h5 class="card-title fs-3 fw-bold">{{post.title}}</h5>
                                 <p class="card-text text-muted">
                                     {{post.content|truncatechars:25}}
                                 </p>
-                                <div class="row post-votes">
-                                    <div class="col-8">
-                                        <hr>
-                                    </div>
-                                    <div class="col-4">
-                                        <span class="badge rounded-pill bg-secondary" href="#">upvotes |
-                                            {{post.getVotes}}</span>
-                                    </div>
+                                <div class="post-votes d-flex align-items-center">
+                                    <div class="me-4"
+                                        style="background-color: rgb(173, 173, 173); width:90%;height:1px"></div>
+                                    <span class="badge rounded-pill bg-secondary">upvotes |
+                                        {{post.getVotes}}</span>
                                 </div>
                                 <p class="card-text text-muted">category</p>
                             </div>
@@ -95,36 +85,32 @@
                 </div>
                 {% endfor %}
             </div>
+
         </div>
         <!-----------------------------------------side panel----------------------------------------------------------->
-        <div class="col-xl-4">
+        <div class="col-xl-4 shadow-sm">
             <div class="suggested-people">
                 <h5>Suggested people</h5>
-                {% if not users.0 %}
+                {% if not users %}
                 <div>nothing to show</div>
                 {% endif %}
                 {% for user in users %}
                 <div class="profile-card mb-3">
-                    <a href="/user/{{user.id}}" style="text-decoration:none;color:black;">
-                        <div class="row">
-                            <div class="col-3 col-sm-2 col-lg-1 col-xl-3">
-                                <div class="profile-picture"
-                                    style="background-image:url('{{user.userdetail.profile_img.url}}')">
-                                </div>
-                            </div>
-                            <div class="col-9 col-sm-10 col-lg-11 col-xl-9 mt-1">
-                                <span class="fw-bold text-capitalize">{{user.fullname}}</span>
-                                <p class="text-muted"> {{user.userdetail.about}}
-                                </p>
+                    <a href="{% url 'profile' user.id %}" style="text-decoration: none; color: black">
+                        <div class="d-flex align-items-center flex-wrap">
+                            <div class="profile-picture"
+                                style="background-image:url('{{user.userdetail.profile_img.url}}')"></div>
+                            <div class="ms-3 d-flex;align-tems-center">
+                                <div class="fw-bold text-capitalize">{{user.fullname}}</div>
+                                <div class="text-muted">{{user.userdetail.about}}</div>
                             </div>
                         </div>
                     </a>
-                    <hr>
+                    <hr />
                 </div>
                 {% endfor %}
             </div>
         </div>
     </div>
-
 </section>
 {% endblock %}
